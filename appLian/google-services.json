@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "732598854351",
+    "firebase_url": "https://lian-chat.firebaseio.com",
+    "project_id": "lian-chat",
+    "storage_bucket": "lian-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732598854351:android:8206e2a59ef01487",
+        "android_client_info": {
+          "package_name": "com.skynet.lian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732598854351-moq4870216k3bfu7hadgjj22pevmt899.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skynet.lian",
+            "certificate_hash": "fa5649d385ba297b853f5bbc6b3cb6e09618af3f"
+          }
+        },
+        {
+          "client_id": "732598854351-84jqlgs745fu4qqj2u5e8d88lgkefi3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpo-TWmtTqSkb6vEwvznVHNJd1SBSBXQ8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732598854351-84jqlgs745fu4qqj2u5e8d88lgkefi3c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

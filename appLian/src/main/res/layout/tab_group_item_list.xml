@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:tag="Bottom3">
+
+            <FrameLayout
+                android:id="@+id/tvOptionLeft"
+                android:layout_width="@dimen/size_btn_swipe"
+
+                android:layout_height="match_parent"
+                android:background="#d63031"
+                android:foreground="?selectableItemBackgroundBorderless">
+
+                <TextView
+                    style="@style/swipe_text"
+                    android:text="Xóa" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/tvOptionCenter"
+                android:layout_width="@dimen/size_btn_swipe"
+
+                android:layout_height="match_parent"
+                android:background="#55a3fd"
+                android:foreground="?selectableItemBackgroundBorderless">
+
+                <TextView
+                    style="@style/swipe_text"
+                    android:drawableTop="@drawable/ic_video"
+                    android:text="Video" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/tvOptionRight"
+                android:layout_width="@dimen/size_btn_swipe"
+                android:layout_height="match_parent"
+                android:background="#4a90e2"
+
+                android:foreground="?selectableItemBackgroundBorderless">
+
+                <TextView
+                    style="@style/swipe_text"
+                    android:drawableTop="@drawable/ic_phone"
+                    android:text="Gọi" />
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/layoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:tag="Hover"
+            android:visibility="visible"
+        app:drag_edge="right"
+
+        >
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/circleImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgAvt"
+                        android:layout_width="@dimen/size_avt_small"
+                        android:layout_height="@dimen/size_avt_small"
+                        android:src="@drawable/avt_defaut"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="2dp" />
+
+                    <include layout="@layout/item_avatar_group" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgAvt2"
+
+                        android:layout_width="@dimen/size_avt_small"
+                        android:layout_height="@dimen/size_avt_small"
+                        android:src="@drawable/avt_defaut"
+                        app:civ_border_color="@color/white"
+                        android:layout_marginLeft="@dimen/dp12"
+                        app:civ_border_width="2dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/fontSemiBold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:singleLine="true"
+                    android:text="TextView"
+                    android:textColor="#4a4a4a"
+                    app:layout_constraintEnd_toStartOf="@+id/tvTime"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                    app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="00/00/2018"
+                    android:textColor="@color/cool_grey"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvName" />
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:lineSpacingExtra="6sp"
+                    android:lines="2"
+                    android:textColor="#4a4a4a"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvTime"
+                    app:layout_constraintStart_toEndOf="@+id/imgRead"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+                <ImageView
+                    android:id="@+id/imgRead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    app:srcCompat="@drawable/ic_double_checked" />
+
+                <ImageView
+                    android:id="@+id/imgStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+                    app:layout_constraintEnd_toEndOf="@+id/circleImageView"
+                    app:srcCompat="@drawable/dot_green_stock" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </com.daimajia.swipe.SwipeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

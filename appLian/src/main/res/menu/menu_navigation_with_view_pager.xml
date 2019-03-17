@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_icon_home"
+        android:title="Trang chủ" />
+    <item
+        android:id="@+id/nav_chat"
+        android:title="Tin nhắn"
+        android:icon="@drawable/ic_chat" />
+    <item
+        android:id="@+id/nav_group"
+        android:title="Nhóm"
+        android:icon="@drawable/ic_group" />
+    <item
+        android:id="@+id/nav_explore"
+        android:title="Khám phá"
+        android:icon="@drawable/ic_paper_plane_solid" />
+ <item
+        android:id="@+id/nav_call"
+        android:title="Gọi điện"
+        android:icon="@drawable/ic_call" />
+
+</menu>

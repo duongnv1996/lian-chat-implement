@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/TextView"
+        style="@style/text_menu_popup"
+        android:text="Trò chuyện mới" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/addGroup"-->
+        <!--style="@style/text_menu_popup"-->
+        <!--android:drawableLeft="@drawable/ic__ionicons_svg_ios_people"-->
+        <!--android:text="Tạo nhóm mới" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/contact"-->
+        <!--android:drawableLeft="@drawable/ic__ionicons_svg_md_contact"-->
+
+        <!--style="@style/text_menu_popup"-->
+        <!--android:text="Danh bạ" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/setting"-->
+        <!--style="@style/text_menu_popup"-->
+        <!--android:drawableLeft="@drawable/ic_cog"-->
+
+        <!--android:text="Thiết lập" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/home"-->
+        <!--android:drawableLeft="@drawable/ic_icon_home"-->
+        <!--android:drawableTint="@color/black"-->
+        <!--style="@style/text_menu_popup"-->
+        <!--android:text="Trang chủ" />-->
+<!--</LinearLayout>-->

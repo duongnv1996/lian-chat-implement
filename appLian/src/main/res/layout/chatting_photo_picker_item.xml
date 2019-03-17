@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/size_key_board"
+    android:layout_height="@dimen/size_key_board"
+    android:foreground="?selectableItemBackground"
+    >
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/img"
+        android:layout_width="@dimen/size_key_board"
+        android:layout_height="@dimen/size_key_board"
+        android:foreground="?selectableItemBackground"
+
+        android:orientation="vertical"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/avt_defaut">
+
+    </ImageView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/btnSend"
+        android:foreground="?selectableItemBackground"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#b4d9d8d8">
+
+        <TextView
+            android:id="@+id/tvSend"
+            android:layout_width="68dp"
+            android:layout_gravity="center"
+            android:layout_height="68dp"
+            android:foreground="?selectableItemBackground"
+            android:background="@drawable/chatting_item_stock_circle"
+            android:text="Gửi"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+
+
+            />
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <CheckBox
+        android:id="@+id/cbLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/location_post_style"
+        android:textColor="@color/selector_item_text_sharecolor"
+        android:background="@drawable/seletor_share_post_bg"
+        android:text="90 Tôn Đức Thắng"
+        android:checked="false"
+        />
+</LinearLayout>
