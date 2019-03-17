@@ -19,6 +19,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -58,9 +59,10 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class TabChatFragment extends BaseFragment implements AdapterChatItem.CallBack, ICallback, TabChatContract.View, SwipeRefreshLayout.OnRefreshListener,View.OnTouchListener {
+public class TabChatFragment extends BaseFragment implements AdapterChatItem.CallBack, ICallback, TabChatContract.View, SwipeRefreshLayout.OnRefreshListener, View.OnTouchListener {
 
     @BindView(R2.id.imgHome)
     CircleImageView imgHome;
@@ -105,6 +107,7 @@ public class TabChatFragment extends BaseFragment implements AdapterChatItem.Cal
     ListPopupWindow window;
     @BindView(R2.id.include)
     ConstraintLayout include;
+    Unbinder unbinder;
 
     private List<ChatItem> chatItems;
     private AdapterChatItem adapterChatItem;
@@ -216,12 +219,14 @@ public class TabChatFragment extends BaseFragment implements AdapterChatItem.Cal
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (timer != null) {
                     timer.cancel();
                 }
             }
+
             @Override
             public void afterTextChanged(final Editable s) {
                 if (s.toString().isEmpty()) return;
@@ -280,73 +285,44 @@ public class TabChatFragment extends BaseFragment implements AdapterChatItem.Cal
         showAtLocation((View) parent.getWindowToken(), gravity, x, y);
     }
 
-    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack, R2.id.imgSearch, R2.id.imgAddNewMessage})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgHome:
-                startActivityForResult(new Intent(getActivity(), ProfileActivity.class), 100);
-                break;
-
-            case R2.id.tvNameToolbar:
-                break;
-
-            case R2.id.imgMore:
-                if (layoutMenuChat.getVisibility() == View.VISIBLE) {
-                    layoutMenuChat.setVisibility(View.GONE);
-
-                } else {
-                    layoutMenuChat.setVisibility(View.VISIBLE);
-                }
-//                window.show();
-
-//                PopupMenu popupMenu = new PopupMenu(getContext(), imgSearch);
-////                popupMenu.inflate(R.menu.popup_menu_chat);
-//                try {
-//                    Field[] fields = popupMenu.getClass().getDeclaredFields();
-//                    for (Field field : fields) {
-//                        if ("mPopup".equals(field.getName())) {
-//                            field.setAccessible(true);
-//                            Object menuPopupHelper = field.get(popupMenu);
-//                            Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
-//                            Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
-//                            setForceIcons.invoke(menuPopupHelper, true);
-//                            break;
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                popupMenu.getMenuInflater().inflate(R.menu.popup_menu_chat, popupMenu.getMenu());
-//                popupMenu.setGravity(Gravity.END);
+//    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack, R2.id.imgSearch, R2.id.imgAddNewMessage})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.imgHome:
+//                startActivityForResult(new Intent(getActivity(), ProfileActivity.class), 100);
+//                break;
 //
-//                popupMenu.show();
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem menuItem) {
-//                        return false;
-//                    }
-//                });
-                break;
-            case R2.id.imgBack:
-//                layoutToolbar.setVisibility(View.VISIBLE);
-                layoutSearch.setVisibility(View.INVISIBLE);
-                onRefresh();
-                KeyboardUtils.hideSoftInput(getActivity());
-                break;
-            case R2.id.imgSearch:
-//                layoutToolbar.setVisibility(View.INVISIBLE);
-                layoutSearch.setVisibility(View.VISIBLE);
-                layoutMenuChat.setVisibility(View.GONE);
-                search.requestFocus();
-                KeyboardUtils.showSoftInput(search);
-                break;
-            case R2.id.imgAddNewMessage:
-                Intent intent = new Intent(getActivity(), ContactActivity.class);
-                intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
-                startActivityForResult(intent, 1000);
-                break;
-        }
-    }
+//            case R2.id.tvNameToolbar:
+//                break;
+//
+//            case R2.id.imgMore:
+//                if (layoutMenuChat.getVisibility() == View.VISIBLE) {
+//                    layoutMenuChat.setVisibility(View.GONE);
+//
+//                } else {
+//                    layoutMenuChat.setVisibility(View.VISIBLE);
+//                }
+//                break;
+//            case R2.id.imgBack:
+////                layoutToolbar.setVisibility(View.VISIBLE);
+//                layoutSearch.setVisibility(View.INVISIBLE);
+//                onRefresh();
+//                KeyboardUtils.hideSoftInput(getActivity());
+//                break;
+//            case R2.id.imgSearch:
+////                layoutToolbar.setVisibility(View.INVISIBLE);
+//                layoutSearch.setVisibility(View.VISIBLE);
+//                layoutMenuChat.setVisibility(View.GONE);
+//                search.requestFocus();
+//                KeyboardUtils.showSoftInput(search);
+//                break;
+//            case R2.id.imgAddNewMessage:
+//                Intent intent = new Intent(getActivity(), ContactActivity.class);
+//                intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
+//                startActivityForResult(intent, 1000);
+//                break;
+//        }
+//    }
 
 
     @Override
@@ -368,9 +344,9 @@ public class TabChatFragment extends BaseFragment implements AdapterChatItem.Cal
             }
             tvNameToolbar.setText("Hi, " + profile.getName());
             tvStatusToolbar.setText(profile.getLast_status());
-            if(profile.getOnline() == 0 ){
+            if (profile.getOnline() == 0) {
                 imgStausToolbar.setImageResource(R.drawable.dot_gray_stock);
-            }else{
+            } else {
                 imgStausToolbar.setImageResource(R.drawable.dot_green_stock);
             }
         }
@@ -493,39 +469,131 @@ public class TabChatFragment extends BaseFragment implements AdapterChatItem.Cal
 
     }
 
-    @OnClick({R2.id.menu_newchat, R2.id.menu_new_group_chat, R2.id.menu_contact, R2.id.menu_setting})
-    public void onViewMenuClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.menu_newchat: {
-                Intent intent = new Intent(getActivity(), ContactActivity.class);
-                intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
-                startActivityForResult(intent, 1000);
-                break;
-            }
-            case R2.id.menu_new_group_chat: {
-                Intent intent = new Intent(getActivity(), ContactActivity.class);
-                intent.putExtra(AppConstant.MSG, ContactActivity.GROUP_MSG_CODE);
-                startActivityForResult(intent, 1000);
-                break;
-            }
-            case R2.id.menu_contact: {
-                Intent intent = new Intent(getActivity(), ContactActivity.class);
-                intent.putExtra(AppConstant.MSG, ContactActivity.VIEW_CONTACT);
-                startActivityForResult(intent, 1000);
-                break;
-            }
-            case R2.id.menu_setting: {
-                startActivityForResult(new Intent(getActivity(), SettingActivity.class),1000);
-                break;
-            }
-
-        }
-        layoutMenuChat.setVisibility(View.GONE);
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         layoutMenuChat.setVisibility(View.GONE);
         return false;
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R2.id.imgHome)
+    public void onImgHomeClicked() {
+        startActivityForResult(new Intent(getActivity(), ProfileActivity.class), 100);
+
+    }
+
+    @OnClick(R2.id.tvNameToolbar)
+    public void onTvNameToolbarClicked() {
+    }
+
+    @OnClick(R2.id.imgMore)
+    public void onImgMoreClicked() {
+        if (layoutMenuChat.getVisibility() == View.VISIBLE) {
+            layoutMenuChat.setVisibility(View.GONE);
+
+        } else {
+            layoutMenuChat.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick(R2.id.imgSearch)
+    public void onImgSearchClicked() {
+        layoutSearch.setVisibility(View.VISIBLE);
+        layoutMenuChat.setVisibility(View.GONE);
+        search.requestFocus();
+        KeyboardUtils.showSoftInput(search);
+    }
+
+    @OnClick(R2.id.imgBack)
+    public void onImgBackClicked() {
+        layoutSearch.setVisibility(View.INVISIBLE);
+        onRefresh();
+        KeyboardUtils.hideSoftInput(getActivity());
+    }
+
+    @OnClick(R2.id.imgAddNewMessage)
+    public void onImgAddNewMessageClicked() {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
+        startActivityForResult(intent, 1000);
+        layoutMenuChat.setVisibility(View.GONE);
+
+    }
+
+    @OnClick(R2.id.menu_newchat)
+    public void onMenuNewchatClicked() {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
+        startActivityForResult(intent, 1000);
+        layoutMenuChat.setVisibility(View.GONE);
+
+    }
+
+    @OnClick(R2.id.menu_new_group_chat)
+    public void onMenuNewGroupChatClicked() {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(AppConstant.MSG, ContactActivity.GROUP_MSG_CODE);
+        startActivityForResult(intent, 1000);
+        layoutMenuChat.setVisibility(View.GONE);
+
+    }
+
+    @OnClick(R2.id.menu_contact)
+    public void onMenuContactClicked() {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(AppConstant.MSG, ContactActivity.VIEW_CONTACT);
+        startActivityForResult(intent, 1000);
+        layoutMenuChat.setVisibility(View.GONE);
+
+    }
+
+    @OnClick(R2.id.menu_setting)
+    public void onMenuSettingClicked() {
+        startActivityForResult(new Intent(getActivity(), SettingActivity.class), 1000);
+
+    }
+//
+//    @OnClick({R2.id.menu_newchat, R2.id.menu_new_group_chat, R2.id.menu_contact, R2.id.menu_setting})
+//    public void onViewMenuClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.menu_newchat: {
+//                Intent intent = new Intent(getActivity(), ContactActivity.class);
+//                intent.putExtra(AppConstant.MSG, ContactActivity.SINGLE_MSG_CODE);
+//                startActivityForResult(intent, 1000);
+//                break;
+//            }
+//            case R2.id.menu_new_group_chat: {
+//                Intent intent = new Intent(getActivity(), ContactActivity.class);
+//                intent.putExtra(AppConstant.MSG, ContactActivity.GROUP_MSG_CODE);
+//                startActivityForResult(intent, 1000);
+//                break;
+//            }
+//            case R2.id.menu_contact: {
+//                Intent intent = new Intent(getActivity(), ContactActivity.class);
+//                intent.putExtra(AppConstant.MSG, ContactActivity.VIEW_CONTACT);
+//                startActivityForResult(intent, 1000);
+//                break;
+//            }
+//            case R2.id.menu_setting: {
+//                startActivityForResult(new Intent(getActivity(), SettingActivity.class), 1000);
+//                break;
+//            }
+//
+//        }
+//        layoutMenuChat.setVisibility(View.GONE);
+//    }
+
 }

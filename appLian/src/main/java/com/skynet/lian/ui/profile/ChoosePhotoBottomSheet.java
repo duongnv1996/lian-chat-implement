@@ -71,23 +71,23 @@ public class ChoosePhotoBottomSheet extends BottomSheetDialog {
     }
 
 
-    @OnClick({R2.id.btnCapture, R2.id.btnGallery, R2.id.btnback})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.btnCapture:
+    @OnClick({R2.id.btnCapture})
+    public void onViewbtnCaptureClicked(View view) {
                 paymentBottomCallback.onClickCapturePhoto();
-                dismiss();
-                break;
-            case R2.id.btnGallery:
+
+    }
+    @OnClick({R2.id.btnGallery})
+    public void onViewbtnGalleryClicked(View view) {
+
                 paymentBottomCallback.onClickGalleryPhoto();
                 dismiss();
 
-                break;
-            case R2.id.btnback:
+
+    }
+    @OnClick({R2.id.btnback})
+    public void onViewbtnbackClicked(View view) {
                 dismiss();
 
-                break;
-        }
     }
 
 

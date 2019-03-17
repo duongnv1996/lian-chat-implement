@@ -181,20 +181,20 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
     }
 
 
-    @OnClick({R2.id.imgBack, R2.id.imgChat})
-    public void onView2Clicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBack:
+    @OnClick(R2.id.imgBack)
+    public void onViewimgBackClicked() {
+
                 onBackPressed();
-                break;
-            case R2.id.imgChat:
+
+    }
+@OnClick(R2.id.imgChat)
+    public void onViewimgChatClicked() {
+
                 Intent i;
                 i = new Intent(ProfileFriendActivity.this, ChatActivity.class);
                 i.putExtra(AppConstant.MSG, profileFriend.getId());
                 i.putExtra("typeRoom", AppConstant.SINGLE);
                 startActivityForResult(i, 1000);
-                break;
-        }
     }
 
 
@@ -327,11 +327,9 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
         presenter.getTimeline(idFriend, index, AppConstant.TYPE_IMAGE);
     }
 
-    @OnClick({R2.id.tvFollow, R2.id.tvMakeFriendRQ})
-    public void onViewClicked(View view) {
+    @OnClick(R2.id.tvFollow)
+    public void onViewtvFollowClicked() {
         if (profileFriend == null) return;
-        switch (view.getId()) {
-            case R2.id.tvFollow:
                 if (profileFriend.getIs_following() == 1) {
                     profileFriend.setIs_following(2);
                     tvFollow.setText("Theo dõi");
@@ -340,8 +338,11 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
                     tvFollow.setText("Đang theo dõi");
                 }
                 presenter.toggleFollow(profileFriend.getId(), profileFriend.getIs_following());
-                break;
-            case R2.id.tvMakeFriendRQ:
+
+    }
+    @OnClick( R2.id.tvMakeFriendRQ)
+    public void onViewtvMakeFriendRQClicked() {
+        if (profileFriend == null) return;
                 presenter.addFriend(profileFriend.getId(), profileFriend.getIs_friend());
                 //todo update text after unfriend or addfriend
                 if (profileFriend.getIs_friend() == 2) {
@@ -366,7 +367,6 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
 //                tvMakeFriendRQ.setBackgroundResource(R.drawable.bg_round_profile);
 //                tvMakeFriendRQ.setText("Đang chờ");
                 setResult(RESULT_OK);
-                break;
-        }
+
     }
 }

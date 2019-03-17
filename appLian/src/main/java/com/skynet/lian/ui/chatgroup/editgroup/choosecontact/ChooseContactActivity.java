@@ -192,17 +192,18 @@ public class ChooseContactActivity extends BaseActivity implements ContactContra
         // TODO: add setContentView(...) invocation
     }
 
-    @OnClick({R2.id.imgBack, R2.id.imgSearch})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBack:
+    @OnClick(R2.id.imgBack)
+    public void onViewClicked() {
+
                 onBackPressed();
-                break;
-            case R2.id.imgSearch:
+
+    }
+
+    @OnClick( R2.id.imgSearch)
+    public void onViewSearchClicked() {
+
                 startActivityForResult(new Intent(ChooseContactActivity.this, SearchForChooseFriendActivity.class), 1000);
 
-                break;
-        }
     }
 
     @Override
@@ -325,23 +326,25 @@ public class ChooseContactActivity extends BaseActivity implements ContactContra
 //        }
     }
 
-    @OnClick({R2.id.imgAdd, R2.id.btnCreateGroup})
-    public void onViewAddClicked(View view) {
-        switch (view.getId()) {
-            case R.id.imgAdd:
-                imgAdd.setVisibility(View.INVISIBLE);
-                code_excute=GROUP_MSG_CODE;
-                btnCreateGroup.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btnCreateGroup:
+    @OnClick({ R2.id.btnCreateGroup})
+    public void onViewbtnCreateGroupClicked(View view) {
+
                 for (Profile person :listContact) {
                     if(person.isChecked() && (person.getId() == null || person.getId().equals("0") || person.getId().isEmpty())){
                         person.setChecked(false);
                     }
                 }
                 bottomSheet.show();
-                break;
-        }
+
+    }
+
+    @OnClick({R2.id.imgAdd})
+    public void onViewAddClicked(View view) {
+
+                imgAdd.setVisibility(View.INVISIBLE);
+                code_excute=GROUP_MSG_CODE;
+                btnCreateGroup.setVisibility(View.VISIBLE);
+
     }
 
     @Override

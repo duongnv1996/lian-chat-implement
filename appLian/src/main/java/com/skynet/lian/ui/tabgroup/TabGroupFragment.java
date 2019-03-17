@@ -233,40 +233,40 @@ public class TabGroupFragment extends BaseFragment implements AdapterChatItem.Ca
         presenter.getListChat();
 
     }
-
-    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack,
-            R2.id.imgSearch, R2.id.imgAddNewMessage})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgHome:
-                break;
-
-            case R2.id.tvNameToolbar:
-                break;
-
-            case R2.id.imgMore:
-                window.show();
-                break;
-            case R2.id.imgBack:
-                layoutToolbar.setVisibility(View.VISIBLE);
-                layoutSearch.setVisibility(View.INVISIBLE);
-                onRefresh();
-                KeyboardUtils.hideSoftInput(getActivity());
-
-                break;
-            case R2.id.imgSearch:
-                layoutToolbar.setVisibility(View.INVISIBLE);
-                layoutSearch.setVisibility(View.VISIBLE);
-                search.requestFocus();
-                KeyboardUtils.showSoftInput(search);
-                break;
-            case R2.id.imgAddNewMessage:
-                Intent intent = new Intent(getActivity(), ContactActivity.class);
-                intent.putExtra(AppConstant.MSG,ContactActivity.GROUP_MSG_CODE);
-                startActivityForResult(intent,1000);
-                break;
-        }
-    }
+//
+//    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack,
+//            R2.id.imgSearch, R2.id.imgAddNewMessage})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.imgHome:
+//                break;
+//
+//            case R2.id.tvNameToolbar:
+//                break;
+//
+//            case R2.id.imgMore:
+//                window.show();
+//                break;
+//            case R2.id.imgBack:
+//                layoutToolbar.setVisibility(View.VISIBLE);
+//                layoutSearch.setVisibility(View.INVISIBLE);
+//                onRefresh();
+//                KeyboardUtils.hideSoftInput(getActivity());
+//
+//                break;
+//            case R2.id.imgSearch:
+//                layoutToolbar.setVisibility(View.INVISIBLE);
+//                layoutSearch.setVisibility(View.VISIBLE);
+//                search.requestFocus();
+//                KeyboardUtils.showSoftInput(search);
+//                break;
+//            case R2.id.imgAddNewMessage:
+//                Intent intent = new Intent(getActivity(), ContactActivity.class);
+//                intent.putExtra(AppConstant.MSG,ContactActivity.GROUP_MSG_CODE);
+//                startActivityForResult(intent,1000);
+//                break;
+//        }
+//    }
     public void deleteChat() {
         if (itemChatEdit != null && presenter != null) {
             presenter.deleteChat(itemChatEdit.getId());

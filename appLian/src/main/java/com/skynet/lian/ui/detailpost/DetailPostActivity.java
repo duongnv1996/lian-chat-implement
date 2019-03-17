@@ -138,12 +138,13 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     private EditPostBottomSheet.MoreOptionCallback callBackEditPost = new EditPostBottomSheet.MoreOptionCallback() {
         @Override
         public void onMoreOptionCallback(String msg, int type) {
-            if(post!=null){
+            if (post != null) {
                 post.setType_share(type);
-                presenter.editPost(post.getId(),msg,type);
+                presenter.editPost(post.getId(), msg, type);
             }
         }
     };
+
     @Override
     protected int initLayout() {
         return R.layout.activity_detailpost;
@@ -244,92 +245,177 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+//
+//    @OnClick({R2.id.imageView10, R2.id.imageView13, R2.id.circleImageView3,
+//            R2.id.tvName, R2.id.tvTime, R2.id.tvNumbershare, R2.id.img_smile,
+//            R2.id.send_imv})
+//    public void onViewClicked(View view) {
+//        Intent iProfile = new Intent(DetailPostActivity.this, ProfileFriendActivity.class);
+//        iProfile.putExtra(AppConstant.MSG, post.getUser_id());
+//        switch (view.getId()) {
+//            case R2.id.imageView10:
+//                onBackPressed();
+//                break;
+//            case R2.id.imageView13:
+//                if (expandMenu.getVisibility() == View.VISIBLE) {
+//                    expandMenu.setVisibility(View.GONE);
+//                } else {
+//                    expandMenu.setVisibility(View.VISIBLE);
+//                }
+//                break;
+//            case R2.id.circleImageView3:
+//                startActivity(iProfile);
+//
+//                break;
+//            case R2.id.tvName:
+//                startActivity(iProfile);
+//
+//                break;
+//            case R2.id.tvTime:
+//                startActivity(iProfile);
+//                break;
+//            case R2.id.tvNumbershare:
+//                if (dialogShare != null && !dialogShare.isShowing())
+//                    dialogShare.show();
+//                break;
+//            case R2.id.img_smile:
+//                if (emojiKeyboardLayout.getVisibility() == View.VISIBLE) {
+//                    openKeyboard();
+//                } else {
+//                    onpenEmojiKeyboard();
+//                }
+//
+//                break;
+//            case R2.id.send_imv:
+//                hideKeyboard();
+//                String content = messageTxt.getText().toString();
+//                try {
+//                    content = URLEncoder.encode(content, "UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//                if (content.isEmpty()) {
+//                    Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (post == null) return;
+//
+//                Comment message = new Comment();
+//                message.setName(AppController.getInstance().getmProfileUser().getName());
+//                message.setComment(content);
+//                message.setAvatar(AppController.getInstance().getmProfileUser().getAvatar());
+//                messageTxt.setText("");
+//                listComment.add(message);
+//                adapterComment.notifyItemInserted(adapterComment.getItemCount());
+//                presenter.comment(post.getId(), content, listComment.size() - 1);
+//                if (adapterComment.getItemCount() > 0)
+//                    rcv.smoothScrollToPosition(adapterComment.getItemCount());
+//                post.setNumber_comment(post.getNumber_comment() + 1);
+//                tvNumberComment.setText(post.getNumber_comment() + " bình luận");
+//                Intent i = new Intent();
+//                i.putExtra(AppConstant.MSG, post.getNumber_comment());
+//                setResult(RESULT_CHANGE_COMMENT, i);
+//
+//                break;
+//        }
+//    }
+    @OnClick(R2.id.layoutShare)
+    public void onViewClicked() {
+    }
 
-    @OnClick({R2.id.imageView10, R2.id.imageView13, R2.id.circleImageView3,
-            R2.id.tvName, R2.id.tvTime, R2.id.tvNumbershare, R2.id.img_smile,
-            R2.id.send_imv})
-    public void onViewClicked(View view) {
-        Intent iProfile = new Intent(DetailPostActivity.this, ProfileFriendActivity.class);
-        iProfile.putExtra(AppConstant.MSG, post.getUser_id());
-        switch (view.getId()) {
-            case R2.id.imageView10:
-                onBackPressed();
-                break;
-            case R2.id.imageView13:
-                if (expandMenu.getVisibility() == View.VISIBLE) {
-                    expandMenu.setVisibility(View.GONE);
-                }else{
-                    expandMenu.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R2.id.circleImageView3:
-                startActivity(iProfile);
+    @OnClick(R2.id.imageView10)
+    public void onImageView10Clicked() {
+        onBackPressed();
+    }
 
-                break;
-            case R2.id.tvName:
-                startActivity(iProfile);
-
-                break;
-            case R2.id.tvTime:
-                startActivity(iProfile);
-                break;
-            case R2.id.tvNumbershare:
-                if (dialogShare != null && !dialogShare.isShowing())
-                    dialogShare.show();
-                break;
-            case R2.id.img_smile:
-                if (emojiKeyboardLayout.getVisibility() == View.VISIBLE) {
-                    openKeyboard();
-                } else {
-                    onpenEmojiKeyboard();
-                }
-
-                break;
-            case R2.id.send_imv:
-                hideKeyboard();
-                String content = messageTxt.getText().toString();
-                try {
-                    content = URLEncoder.encode(content, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                if (content.isEmpty()) {
-                    Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (post == null) return;
-
-                Comment message = new Comment();
-                message.setName(AppController.getInstance().getmProfileUser().getName());
-                message.setComment(content);
-                message.setAvatar(AppController.getInstance().getmProfileUser().getAvatar());
-                messageTxt.setText("");
-                listComment.add(message);
-                adapterComment.notifyItemInserted(adapterComment.getItemCount());
-                presenter.comment(post.getId(), content, listComment.size() - 1);
-                if (adapterComment.getItemCount() > 0)
-                    rcv.smoothScrollToPosition(adapterComment.getItemCount());
-                post.setNumber_comment(post.getNumber_comment() + 1);
-                tvNumberComment.setText(post.getNumber_comment() + " bình luận");
-                Intent i = new Intent();
-                i.putExtra(AppConstant.MSG, post.getNumber_comment());
-                setResult(RESULT_CHANGE_COMMENT, i);
-
-                break;
+    @OnClick(R2.id.imageView13)
+    public void onImageView13Clicked() {
+        if (expandMenu.getVisibility() == View.VISIBLE) {
+            expandMenu.setVisibility(View.GONE);
+        } else {
+            expandMenu.setVisibility(View.VISIBLE);
         }
     }
 
+    @OnClick(R2.id.circleImageView3)
+    public void onCircleImageView3Clicked() {
+        Intent iProfile = new Intent(DetailPostActivity.this, ProfileFriendActivity.class);
+        iProfile.putExtra(AppConstant.MSG, post.getUser_id());
+        startActivity(iProfile);
+    }
+
+    @OnClick(R2.id.tvName)
+    public void onTvNameClicked() {
+        Intent iProfile = new Intent(DetailPostActivity.this, ProfileFriendActivity.class);
+        iProfile.putExtra(AppConstant.MSG, post.getUser_id());
+        startActivity(iProfile);
+    }
+
+    @OnClick(R2.id.tvTime)
+    public void onTvTimeClicked() {
+        Intent iProfile = new Intent(DetailPostActivity.this, ProfileFriendActivity.class);
+        iProfile.putExtra(AppConstant.MSG, post.getUser_id());
+        startActivity(iProfile);
+    }
+
+    @OnClick(R2.id.tvNumbershare)
+    public void onTvNumbershareClicked() {
+        if (dialogShare != null && !dialogShare.isShowing())
+            dialogShare.show();
+    }
+
+    @OnClick(R2.id.img_smile)
+    public void onImgSmileClicked() {
+        if (emojiKeyboardLayout.getVisibility() == View.VISIBLE) {
+            openKeyboard();
+        } else {
+            onpenEmojiKeyboard();
+        }
+    }
+
+    @OnClick(R2.id.send_imv)
+    public void onSendImvClicked() {
+        hideKeyboard();
+        String content = messageTxt.getText().toString();
+        try {
+            content = URLEncoder.encode(content, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (content.isEmpty()) {
+            Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (post == null) return;
+
+        Comment message = new Comment();
+        message.setName(AppController.getInstance().getmProfileUser().getName());
+        message.setComment(content);
+        message.setAvatar(AppController.getInstance().getmProfileUser().getAvatar());
+        messageTxt.setText("");
+        listComment.add(message);
+        adapterComment.notifyItemInserted(adapterComment.getItemCount());
+        presenter.comment(post.getId(), content, listComment.size() - 1);
+        if (adapterComment.getItemCount() > 0)
+            rcv.smoothScrollToPosition(adapterComment.getItemCount());
+        post.setNumber_comment(post.getNumber_comment() + 1);
+        tvNumberComment.setText(post.getNumber_comment() + " bình luận");
+        Intent i = new Intent();
+        i.putExtra(AppConstant.MSG, post.getNumber_comment());
+        setResult(RESULT_CHANGE_COMMENT, i);
+
+    }
     @Override
     public void onSuccessGetDetail(Post notification) {
         this.post = notification;
-       int idImageClicked = getIntent().getIntExtra("idImage",-1) ;
+        int idImageClicked = getIntent().getIntExtra("idImage", -1);
         if (post.getList_image() != null) {
             this.listImage = post.getList_image();
             rcvPhoto.setAdapter(new AdapterPhoto(post.getList_image(), this, this));
-            if(idImageClicked != -1){
-                int i= 0;
-                for (Image img :this.listImage) {
-                    if(img.getId()==idImageClicked){
+            if (idImageClicked != -1) {
+                int i = 0;
+                for (Image img : this.listImage) {
+                    if (img.getId() == idImageClicked) {
                         rcvPhoto.scrollToPosition(i);
                         break;
                     }
@@ -347,7 +433,7 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
                 Picasso.with(this).load(post.getUser().getAvatar()).fit().centerCrop().into(circleImageView3);
             }
             tvName.setText(post.getUser().getName());
-            if(!post.getUser().getId().equals(AppController.getInstance().getmProfileUser().getId())){
+            if (!post.getUser().getId().equals(AppController.getInstance().getmProfileUser().getId())) {
                 tvEdit.setVisibility(View.GONE);
             }
         }
@@ -439,7 +525,7 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     @Override
     public void onSucessEditPost() {
         setResult(RESULT_OK);
-        showToast("Chỉnh sửa thành công",AppConstant.POSITIVE);
+        showToast("Chỉnh sửa thành công", AppConstant.POSITIVE);
         onRefresh();
     }
 
@@ -558,7 +644,7 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
                 break;
             case R2.id.tvEdit:
                 if (dialogEditPost != null && !dialogEditPost.isShowing()) {
-                 dialogEditPost.setTypeShare(post.getType_share());
+                    dialogEditPost.setTypeShare(post.getType_share());
                     dialogEditPost.show();
                 }
                 break;
@@ -597,7 +683,5 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         presenter.shareContent(post.getId(), msg, typeShare);
     }
 
-    @OnClick(R2.id.layoutShare)
-    public void onViewClicked() {
-    }
+
 }

@@ -154,31 +154,31 @@ public class TabCallFragment extends BaseFragment implements ICallback {
 //            }
 //        });
     }
-
-    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack,
-            R2.id.imgSearch, R2.id.imgAddNewMessage})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgHome:
-                break;
-
-            case R2.id.tvNameToolbar:
-                break;
-
-            case R2.id.imgMore:
-                break;
-            case R2.id.imgBack:
-                layoutToolbar.setVisibility(View.VISIBLE);
-                layoutSearch.setVisibility(View.INVISIBLE);
-                break;
-            case R2.id.imgSearch:
-                layoutToolbar.setVisibility(View.INVISIBLE);
-                layoutSearch.setVisibility(View.VISIBLE);
-                break;
-            case R2.id.imgAddNewMessage:
-                break;
-        }
-    }
+//
+//    @OnClick({R2.id.imgHome, R2.id.tvNameToolbar, R2.id.imgMore, R2.id.imgBack,
+//            R2.id.imgSearch, R2.id.imgAddNewMessage})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.imgHome:
+//                break;
+//
+//            case R2.id.tvNameToolbar:
+//                break;
+//
+//            case R2.id.imgMore:
+//                break;
+//            case R2.id.imgBack:
+//                layoutToolbar.setVisibility(View.VISIBLE);
+//                layoutSearch.setVisibility(View.INVISIBLE);
+//                break;
+//            case R2.id.imgSearch:
+//                layoutToolbar.setVisibility(View.INVISIBLE);
+//                layoutSearch.setVisibility(View.VISIBLE);
+//                break;
+//            case R2.id.imgAddNewMessage:
+//                break;
+//        }
+//    }
 
     @Override
     public void onCallBack(int pos) {

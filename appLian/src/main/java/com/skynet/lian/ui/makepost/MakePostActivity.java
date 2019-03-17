@@ -31,6 +31,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -71,7 +72,7 @@ import io.reactivex.disposables.Disposable;
 import me.iwf.photopicker.PhotoPicker;
 
 public class MakePostActivity extends BaseActivity implements ICallback, ChoosePhotoBottomSheet.ChoosePhotoOptionCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, MakePostContract.View {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, MakePostContract.View {
     @BindView(R2.id.btnBack)
     ImageView btnBack;
     @BindView(R2.id.textView12)
@@ -350,42 +351,36 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
         ButterKnife.bind(this);
     }
 
-    @OnClick({R2.id.btnBack, R2.id.button3, R2.id.addPhoto})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.btnBack:
-                onBackPressed();
-                break;
-            case R2.id.addPhoto:
-                choosePhotoBottomSheet.show();
-                break;
-            case R2.id.button3:
-//                if ( listImage.isEmpty()) {
-//                    showToast("Bạn cần ít nhất 1 ảnh để đăng bài viết mới", AppConstant.NEGATIVE);
-//                    return;
-//                }
-                int type = 1;
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case R2.id.radPublic: {
-                        type = 1;
-                        break;
-                    }
-                    case R2.id.radOnlyFriend: {
-                        type = 2;
-                        break;
-                    }
-                    case R2.id.radOnlyMe: {
-                        type = 3;
-                        break;
-                    }
-                }
-                String address = "";
-                if (myPlace != null) {
-                    address = myPlace.getName();
-                }
-                presenter.submitPost(edtContent.getText().toString(), type, address, listImage);
-                break;
+    @OnClick(R2.id.btnBack)
+    public void onViewClicked() {
+        onBackPressed();
+
+    }
+
+    @OnClick(R2.id.button3)
+    public void onViewbutton3Clicked() {
+
+        int type = 1;
+        if (radioGroup.getCheckedRadioButtonId() == radPublic.getId()) {
+            type = 1;
+        } else if (radioGroup.getCheckedRadioButtonId() == radOnlyFriend.getId()) {
+            type = 2;
+        } else {
+            type = 3;
         }
+        String address = "";
+        if (myPlace != null) {
+            address = myPlace.getName();
+        }
+        presenter.submitPost(edtContent.getText().
+                toString(), type, address, listImage);
+    }
+
+    @OnClick( R2.id.addPhoto)
+    public void onViewaddPhotoClicked() {
+
+                choosePhotoBottomSheet.show();
+
     }
 
     @Override
@@ -485,6 +480,7 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
                     }
                 });
     }
+
     private void choosePhoto() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(Manifest.permission.CAMERA,
@@ -500,7 +496,7 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
                             .choose(MimeType.ofAll())
                             .countable(true)
                             .maxSelectable(9)
-                            .captureStrategy(new CaptureStrategy(true, "com.skynet.lian.provider","Pictures"))
+                            .captureStrategy(new CaptureStrategy(true, "com.skynet.lian.provider", "Pictures"))
                             .capture(true)
 //                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                            .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
@@ -699,7 +695,7 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
     @Override
     public void onErrorApi(String message) {
         LogUtils.e(message);
-        showToast("Đã có lỗi xảy ra. Vui lòng thử lại sau!",AppConstant.NEGATIVE);
+        showToast("Đã có lỗi xảy ra. Vui lòng thử lại sau!", AppConstant.NEGATIVE);
     }
 
     @Override
@@ -712,4 +708,6 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
     public void onErrorAuthorization() {
         showDialogExpired();
     }
+
+
 }

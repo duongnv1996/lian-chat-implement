@@ -156,18 +156,19 @@ public class SearchFriendActivity extends BaseActivity implements SearchContactC
         ButterKnife.bind(this);
     }
 
-    @OnClick({R2.id.imgBack, R2.id.imgSearch})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBack:
-                onBackPressed();
-                break;
-            case R2.id.imgSearch:
+    @OnClick( R2.id.imgSearch)
+    public void onViewimgSearchClicked(View view) {
+
                 if(list.size()  == 1){
                     presenter.addFriend(list.get(0).getId());
                 }
-                break;
-        }
+
+    }
+
+    @OnClick(R2.id.imgBack)
+    public void onViewClicked() {
+                onBackPressed();
+
     }
 
     @Override
@@ -216,62 +217,10 @@ public class SearchFriendActivity extends BaseActivity implements SearchContactC
         showDialogExpired();
     }
 
-    @OnClick({R2.id.number1, R2.id.number2, R2.id.imageView9, R2.id.number3, R2.id.number4, R2.id.number5, R2.id.number6, R2.id.number7, R2.id.number8, R2.id.number9, R2.id.numberstar, R2.id.number0, R2.id.numberT})
-    public void onViewNumberPadClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imageView9:
+    @OnClick( R2.id.imageView9)
+    public void onViewNumberPadClicked() {
                 if (edtPhone.getText().toString().isEmpty()) return;
                 edtPhone.setText(edtPhone.getText().subSequence(0, edtPhone.getText().toString().length() - 1));
-                break;
-            case R2.id.number1:
-                edtPhone.setText(edtPhone.getText() + "1");
-                break;
-            case R2.id.number2:
-                edtPhone.setText(edtPhone.getText() + "2");
-
-
-                break;
-            case R2.id.number3:
-                edtPhone.setText(edtPhone.getText() + "3");
-
-                break;
-            case R2.id.number4:
-                edtPhone.setText(edtPhone.getText() + "4");
-
-                break;
-            case R2.id.number5:
-                edtPhone.setText(edtPhone.getText() + "5");
-
-                break;
-            case R2.id.number6:
-                edtPhone.setText(edtPhone.getText() + "6");
-
-                break;
-            case R2.id.number7:
-                edtPhone.setText(edtPhone.getText() + "7");
-
-                break;
-            case R2.id.number8:
-                edtPhone.setText(edtPhone.getText() + "8");
-
-                break;
-            case R2.id.number9:
-                edtPhone.setText(edtPhone.getText() + "9");
-
-                break;
-            case R2.id.numberstar:
-                edtPhone.setText(edtPhone.getText() + "*");
-
-                break;
-            case R2.id.number0:
-                edtPhone.setText(edtPhone.getText() + "0");
-
-                break;
-            case R2.id.numberT:
-                edtPhone.setText(edtPhone.getText() + "#");
-
-                break;
-        }
     }
 
     @Override
@@ -298,6 +247,78 @@ public class SearchFriendActivity extends BaseActivity implements SearchContactC
 
     @Override
     public void onClickVideo(int pos, Profile profile) {
+
+    }
+
+    @OnClick(R2.id.number1)
+    public void onNumber1Clicked() {
+        edtPhone.setText(edtPhone.getText() + "1");
+    }
+
+    @OnClick(R2.id.number2)
+    public void onNumber2Clicked() {
+        edtPhone.setText(edtPhone.getText() + "2");
+
+
+    }
+
+    @OnClick(R2.id.number3)
+    public void onNumber3Clicked() {
+        edtPhone.setText(edtPhone.getText() + "3");
+
+    }
+
+    @OnClick(R2.id.number4)
+    public void onNumber4Clicked() {
+        edtPhone.setText(edtPhone.getText() + "4");
+
+    }
+
+    @OnClick(R2.id.number5)
+    public void onNumber5Clicked() {
+        edtPhone.setText(edtPhone.getText() + "5");
+
+    }
+
+    @OnClick(R2.id.number6)
+    public void onNumber6Clicked() {
+        edtPhone.setText(edtPhone.getText() + "6");
+
+    }
+
+    @OnClick(R2.id.number7)
+    public void onNumber7Clicked() {
+        edtPhone.setText(edtPhone.getText() + "7");
+
+    }
+
+    @OnClick(R2.id.number8)
+    public void onNumber8Clicked() {
+        edtPhone.setText(edtPhone.getText() + "8");
+
+    }
+
+    @OnClick(R2.id.number9)
+    public void onNumber9Clicked() {
+        edtPhone.setText(edtPhone.getText() + "9");
+
+    }
+
+    @OnClick(R2.id.numberstar)
+    public void onNumberstarClicked() {
+        edtPhone.setText(edtPhone.getText() + "*");
+
+    }
+
+    @OnClick(R2.id.number0)
+    public void onNumber0Clicked() {
+        edtPhone.setText(edtPhone.getText() + "0");
+
+    }
+
+    @OnClick(R2.id.numberT)
+    public void onNumberTClicked() {
+        edtPhone.setText(edtPhone.getText() + "#");
 
     }
 }

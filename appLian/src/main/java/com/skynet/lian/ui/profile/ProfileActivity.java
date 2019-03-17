@@ -143,16 +143,16 @@ public class ProfileActivity extends BaseActivity implements UploadContract.View
     }
 
 
-    @OnClick({R2.id.imgBack, R2.id.imgMore})
-    public void onView2Clicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBack:
+    @OnClick(R2.id.imgBack)
+    public void onViewimgBackClicked() {
+
                 onBackPressed();
-                break;
-            case R2.id.imgMore:
+
+    }
+    @OnClick( R2.id.imgMore)
+    public void onView2Clicked() {
+
                 startActivity(new Intent(this, SettingActivity.class));
-                break;
-        }
     }
 
     private void choosePhoto() {
@@ -345,23 +345,27 @@ public class ProfileActivity extends BaseActivity implements UploadContract.View
         }
     }
 
-    @OnClick({R2.id.imgUploadCover, R2.id.imgAvatar, R2.id.imgAddNewMessage})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgAddNewMessage:
-//                choosePhotoBottomSheet.show();
-                startActivityForResult(new Intent(ProfileActivity.this,MakePostActivity.class),1000);
-                break;
-            case R2.id.imgUploadCover:
+    @OnClick(R2.id.imgUploadCover)
+    public void onViewimgUploadCoverClicked() {
+
                 typeUpload = 2;
                 choosePhoto();
-                break;
-            case R2.id.imgAvatar:
+
+    }
+
+    @OnClick( R2.id.imgAvatar)
+    public void onViewimgAvatarClicked() {
+
                 typeUpload = 1;
                 choosePhoto();
 
-                break;
-        }
+    }
+
+    @OnClick(R2.id.imgAddNewMessage)
+    public void onViewimgAddNewMessageClicked() {
+
+                startActivityForResult(new Intent(ProfileActivity.this,MakePostActivity.class),1000);
+
     }
 
     @OnClick(R2.id.imgCover)

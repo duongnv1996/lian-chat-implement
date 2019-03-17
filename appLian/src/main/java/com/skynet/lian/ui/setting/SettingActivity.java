@@ -93,29 +93,29 @@ public class SettingActivity extends BaseActivity implements DialogCenterHelp.Di
     }
 
 
-    @OnClick({R2.id.imgBtn_back_toolbar, R2.id.layoutNoty, R2.id.layoutBlackList,
-            R2.id.layoutSyncContact, R2.id.layoutStatusAccount})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBtn_back_toolbar:
-                onBackPressed();
-                break;
-            case R2.id.layoutNoty:
-                switchNoty.toggle();
-                break;
-            case R2.id.layoutBlackList:
-                startActivity(new Intent(SettingActivity.this, WhiteListActivity.class));
-                break;
-            case R2.id.layoutSyncContact:
-                presenter.getListContact(getContentResolver());
-                break;
-
-            case R2.id.layoutStatusAccount:
-                switchStatus.toggle();
-                break;
-
-        }
-    }
+//    @OnClick({R2.id.imgBtn_back_toolbar, R2.id.layoutNoty, R2.id.layoutBlackList,
+//            R2.id.layoutSyncContact, R2.id.layoutStatusAccount})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.imgBtn_back_toolbar:
+//                onBackPressed();
+//                break;
+//            case R2.id.layoutNoty:
+//                switchNoty.toggle();
+//                break;
+//            case R2.id.layoutBlackList:
+//                startActivity(new Intent(SettingActivity.this, WhiteListActivity.class));
+//                break;
+//            case R2.id.layoutSyncContact:
+//                presenter.getListContact(getContentResolver());
+//                break;
+//
+//            case R2.id.layoutStatusAccount:
+//                switchStatus.toggle();
+//                break;
+//
+//        }
+//    }
 
     @Override
     public void onEmailClick() {
@@ -175,5 +175,30 @@ public class SettingActivity extends BaseActivity implements DialogCenterHelp.Di
     @Override
     public void onErrorAuthorization() {
         showDialogExpired();
+    }
+
+   @OnClick(R2.id.imgBtn_back_toolbar)
+    public void onImgBtnBackToolbarClicked() {
+        onBackPressed();
+    }
+
+   @OnClick(R2.id.layoutNoty)
+    public void onLayoutNotyClicked() {
+        switchNoty.toggle();
+    }
+
+   @OnClick(R2.id.layoutBlackList)
+    public void onLayoutBlackListClicked() {
+        startActivity(new Intent(SettingActivity.this, WhiteListActivity.class));
+    }
+
+   @OnClick(R2.id.layoutSyncContact)
+    public void onLayoutSyncContactClicked() {
+        presenter.getListContact(getContentResolver());
+    }
+
+   @OnClick(R2.id.layoutStatusAccount)
+    public void onLayoutStatusAccountClicked() {
+        switchStatus.toggle();
     }
 }

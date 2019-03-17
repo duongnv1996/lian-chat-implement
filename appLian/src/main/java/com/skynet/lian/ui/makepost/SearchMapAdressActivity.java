@@ -129,10 +129,8 @@ public class SearchMapAdressActivity extends AppCompatActivity implements OnMapR
         });
     }
 
-    @OnClick({R2.id.search, R2.id.mylocation, R2.id.lay})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.search:
+    @OnClick(R2.id.search)
+    public void onViewClicked() {
                 try {
                     Intent intent =
                             new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
@@ -145,13 +143,19 @@ public class SearchMapAdressActivity extends AppCompatActivity implements OnMapR
                     e.printStackTrace();
                     //Toast.makeText(this, R.string.alert_missing_google_play, Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R2.id.mylocation:
+
+    }
+    @OnClick( R2.id.mylocation)
+    public void onViewmylocationClicked() {
+
                 if (mMap != null && myLatlng != null) {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatlng, 17));
                 }
-                break;
-            case R2.id.lay:
+
+    }
+    @OnClick( R2.id.lay)
+    public void onViewlayClicked() {
+
                 if (place == null) return;
                 Intent i = new Intent();
                 Bundle b = new Bundle();
@@ -159,8 +163,6 @@ public class SearchMapAdressActivity extends AppCompatActivity implements OnMapR
                 i.putExtra(AppConstant.BUNDLE, b);
                 setResult(RESULT_OK, i);
                 finish();
-                break;
-        }
     }
 
 

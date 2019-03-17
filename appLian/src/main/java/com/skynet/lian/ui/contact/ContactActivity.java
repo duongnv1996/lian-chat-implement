@@ -206,17 +206,18 @@ public class ContactActivity extends BaseActivity implements ContactContract.Vie
         // TODO: add setContentView(...) invocation
     }
 
-    @OnClick({R2.id.imgBack, R2.id.imgSearch})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgBack:
+    @OnClick(R2.id.imgBack)
+    public void onViewBClicked() {
+
                 onBackPressed();
-                break;
-            case R2.id.imgSearch:
+
+    }
+
+    @OnClick( R2.id.imgSearch)
+    public void onViewClicked() {
+
                 startActivityForResult(new Intent(ContactActivity.this, SearchFriendActivity.class), 1000);
                 setResult(RESULT_OK);
-                break;
-        }
     }
 
     @Override
@@ -357,10 +358,9 @@ public class ContactActivity extends BaseActivity implements ContactContract.Vie
         }
     }
 
-    @OnClick({R2.id.imgAdd, R2.id.btnCreateGroup})
-    public void onViewAddClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.imgAdd:
+    @OnClick(R2.id.imgAdd)
+    public void onViewimgAddClicked() {
+
                 imgAdd.setVisibility(View.INVISIBLE);
                 code_excute = GROUP_MSG_CODE;
                 if (adapterChatItem != null) {
@@ -369,16 +369,18 @@ public class ContactActivity extends BaseActivity implements ContactContract.Vie
                     adapterChatItem.notifyDataSetChanged();
                 }
                 btnCreateGroup.setVisibility(View.VISIBLE);
-                break;
-            case R2.id.btnCreateGroup:
+
+    }
+
+    @OnClick( R2.id.btnCreateGroup)
+    public void onViewAddClicked() {
+
                 for (Profile person : listContact) {
                     if (person.isChecked() && (person.getId() == null || person.getId().equals("0") || person.getId().isEmpty())) {
                         person.setChecked(false);
                     }
                 }
                 bottomSheet.show();
-                break;
-        }
     }
 
     @Override
