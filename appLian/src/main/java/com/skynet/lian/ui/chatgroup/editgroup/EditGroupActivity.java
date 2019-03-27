@@ -195,6 +195,9 @@ public class EditGroupActivity extends BaseActivity implements EditContract.View
             getmSocket().sendMessage("", "", "", room.getRoomInfo() + "", AppConstant.GROUP);
         }
         setResult(RESULT_CODE_DELETE_GROUP);
+        btnLeave.setEnabled(false);
+        btnDelete.setEnabled(false);
+
         showToast("Đã xoá nhóm thành công!", AppConstant.POSITIVE, new SnackBarCallBack() {
             @Override
             public void onClosedSnackBar() {
@@ -210,6 +213,9 @@ public class EditGroupActivity extends BaseActivity implements EditContract.View
             getmSocket().sendMessage("", "", "", room.getRoomInfo() + "", AppConstant.GROUP);
             getmSocket().leaveRoom(room.getRoomInfo() + "");
         }
+        btnLeave.setEnabled(false);
+        btnDelete.setEnabled(false);
+
         showToast("Đã rời khỏi nhóm thành công!", AppConstant.POSITIVE, new SnackBarCallBack() {
             @Override
             public void onClosedSnackBar() {

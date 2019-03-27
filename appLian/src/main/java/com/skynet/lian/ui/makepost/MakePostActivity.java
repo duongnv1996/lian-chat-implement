@@ -115,7 +115,7 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private LocationRequest locationRequest;
     private static final long UPDATE_INTERVAL = 6000, FASTEST_INTERVAL = 6000; // = 5 seconds
-    int PLACE_PICKER_REQUEST = 122222;
+    int PLACE_PICKER_REQUEST = 12;
 
     private AdapterLocation.CallBackAddLocation iCallbackLocation = new AdapterLocation.CallBackAddLocation() {
         @Override
@@ -175,7 +175,6 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
         camera = new Camera.Builder()
                 .resetToCorrectOrientation(true)// it will rotate the camera bitmap to the correct orientation from meta data
                 .setTakePhotoRequestCode(1)
-
                 .setDirectory("pics")
                 .setName("ali_" + System.currentTimeMillis())
                 .setImageFormat(Camera.IMAGE_JPEG)
@@ -359,7 +358,9 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
 
     @OnClick(R2.id.button3)
     public void onViewbutton3Clicked() {
-
+        if(edtContent.getText().toString().isEmpty() && listImage.isEmpty() ){
+            return;
+        }
         int type = 1;
         if (radioGroup.getCheckedRadioButtonId() == radPublic.getId()) {
             type = 1;
@@ -423,7 +424,11 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
             public void onNext(Boolean aBoolean) {
                 if (aBoolean) {
                     try {
-                        camera.takePicture();
+                        if(listImage.size() <10) {
+                            camera.takePicture();
+                        }else{
+                            showToast("Bạn chỉ có thể tải lên tối đa 10 ảnh",AppConstant.NEGATIVE);
+                        }
 //                        launchCamera();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -491,11 +496,16 @@ public class MakePostActivity extends BaseActivity implements ICallback, ChooseP
 
             @Override
             public void onNext(Boolean aBoolean) {
+                int lengt = listImage.size();
+                if(lengt >= 10){
+                    showToast("Bạn chỉ có thể tải lên tối đa 10 ảnh",AppConstant.NEGATIVE);
+                    return;
+                }
                 if (aBoolean) {
                     Matisse.from(MakePostActivity.this)
                             .choose(MimeType.ofAll())
                             .countable(true)
-                            .maxSelectable(9)
+                            .maxSelectable(10-lengt)
                             .captureStrategy(new CaptureStrategy(true, "com.skynet.lian.provider", "Pictures"))
                             .capture(true)
 //                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))

@@ -152,11 +152,7 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
         rcv.setLoadingListener(this);
 
         onRefresh();
-        adapter = new AdapterProfileViewpager(getSupportFragmentManager(),idFriend);
-        viewpager.setAdapter(adapter);
-        bnve.setupWithViewPager(viewpager);
-        viewpager.setPagingEnabled(true);
-        viewpager.setCurrentItem(0);
+
     }
 
     @Override
@@ -262,6 +258,11 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
     public void onSucessGetInfo(Profile profile) {
         this.profileFriend = profile;
         if (profile != null) {
+            adapter = new AdapterProfileViewpager(getSupportFragmentManager(),idFriend,profileFriend);
+            viewpager.setAdapter(adapter);
+            bnve.setupWithViewPager(viewpager);
+            viewpager.setPagingEnabled(true);
+            viewpager.setCurrentItem(0);
             tvName.setText(profile.getName());
             tvFriend.setText(profile.getMutual_friend() + " bạn chung");
             tvAddress.setText(profile.getAddress());

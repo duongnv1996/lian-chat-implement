@@ -60,6 +60,7 @@ public class FragmentViewPhoto extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        Jzvd.releaseAllVideos();
 //        videoPlayer.pause();
     }
 

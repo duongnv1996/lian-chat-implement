@@ -67,14 +67,15 @@ public class SettingActivity extends BaseActivity implements DialogCenterHelp.Di
     @Override
     protected void initViews() {
         ButterKnife.bind(this);
-        switchNoty.setChecked(AppController.getInstance().getmSetting().getBoolean(AppConstant.NOTI_ON));
-        switchStatus.setChecked(AppController.getInstance().getmSetting().getBoolean(AppConstant.STATUS));
+        switchNoty.setChecked(AppController.getInstance().getmSetting().getBoolean(AppConstant.NOTI_ON,true));
+//        switchStatus.setChecked(AppController.getInstance().getmSetting().getBoolean(AppConstant.STATUS));
         switchNoty.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 AppController.getInstance().getmSetting().put(AppConstant.NOTI_ON, isChecked);
             }
         });
+        switchStatus.setChecked(AppController.getInstance().getmProfileUser().getOnline()==1);
         switchStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -43,7 +44,12 @@ public class EditShareBottomSheet extends BottomSheetDialog {
     LinearLayout confirmlayout;
     @BindView(R2.id.radioGroup)
     RadioGroup radioGroup;
-
+    @BindView(R2.id.radPublic)
+    RadioButton radPublic;
+    @BindView(R2.id.radOnlyFriend)
+    RadioButton radOnlyFriend;
+    @BindView(R2.id.radOnlyMe)
+    RadioButton radOnlyMe;
 
     public EditShareBottomSheet(@NonNull final Context context, final MoreOptionCallback paymentBottomCallback) {
 
@@ -122,32 +128,39 @@ public class EditShareBottomSheet extends BottomSheetDialog {
         }
     }
 
-    @OnClick({R2.id.OptionRight, R2.id.OptionLeft})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.OptionRight:
+    @OnClick({R2.id.OptionRight})
+    public void onViewOptionRightClicked(View view) {
                 dismiss();
+//                int type = 1;
+//                switch (radioGroup.getCheckedRadioButtonId()) {
+//                    case R2.id.radPublic: {
+//                        type = 1;
+//                        break;
+//                    }
+//                    case R2.id.radOnlyFriend: {
+//                        type = 2;
+//                        break;
+//                    }
+//                    case R2.id.radOnlyMe: {
+//                        type = 3;
+//                        break;
+//                    }
+//                }
                 int type = 1;
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case R2.id.radPublic: {
-                        type = 1;
-                        break;
-                    }
-                    case R2.id.radOnlyFriend: {
-                        type = 2;
-                        break;
-                    }
-                    case R2.id.radOnlyMe: {
-                        type = 3;
-                        break;
-                    }
+                if (radioGroup.getCheckedRadioButtonId() == radPublic.getId()) {
+                    type = 1;
+                } else if (radioGroup.getCheckedRadioButtonId() == radOnlyFriend.getId()) {
+                    type = 2;
+                } else {
+                    type = 3;
                 }
                 bottomCallback.onMoreOptionCallback(edtName.getText().toString(),type);
-                break;
-            case R2.id.OptionLeft:
+
+    }
+    @OnClick({ R2.id.OptionLeft})
+    public void onViewClicked(View view) {
+
                 dismiss();
-                break;
-        }
     }
 
 

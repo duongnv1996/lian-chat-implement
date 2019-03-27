@@ -123,7 +123,7 @@ public class ProfileActivity extends BaseActivity implements UploadContract.View
         bnve.enableItemShiftingMode(false);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/SF-UI-Text-Medium.otf");
         bnve.setTypeface(custom_font);
-        adapter = new AdapterProfileViewpager(getSupportFragmentManager(),null);
+        adapter = new AdapterProfileViewpager(getSupportFragmentManager(),null,AppController.getInstance().getmProfileUser());
         viewpager.setAdapter(adapter);
         bnve.setupWithViewPager(viewpager);
         viewpager.setPagingEnabled(true);
@@ -178,7 +178,7 @@ public class ProfileActivity extends BaseActivity implements UploadContract.View
                             .capture(true)
                             .captureStrategy(new CaptureStrategy(true, "com.skynet.lian.provider","Pictures"))
 
-                            .maxSelectable(9)
+                            .maxSelectable(typeUpload == 1 || typeUpload == 2 ? 1: 9)
 //                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                            .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)

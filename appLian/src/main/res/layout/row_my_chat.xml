@@ -112,6 +112,7 @@
                 android:background="@drawable/background_button_3"
                 android:drawablePadding="@dimen/dp8"
                 android:gravity="left|center"
+                android:textIsSelectable="true"
                 android:lineSpacingExtra="@dimen/dp2"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"

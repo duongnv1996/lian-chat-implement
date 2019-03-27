@@ -71,18 +71,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15">
-
                 <RadioButton
                     android:id="@+id/radPublic"
-                    android:text="Tất cả"
+                    style="@style/radio_post_style"
+                    android:textColor="@color/selector_item_text_sharecolor"
+                    android:background="@drawable/seletor_share_post_bg"
                     android:checked="true"
-                    style="@style/radio_post_style" />
+                    android:text="Tất cả" />
 
                 <RadioButton
                     android:id="@+id/radOnlyFriend"
+                    style="@style/radio_post_style"
+                    android:textColor="@color/selector_item_text_sharecolor"
+                    android:background="@drawable/seletor_share_post_bg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/radio_post_style"
                     android:drawableLeft="@drawable/seletor_only_friend"
                     android:text="Bạn bè" />
 
@@ -91,6 +94,8 @@
                     style="@style/radio_post_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/selector_item_text_sharecolor"
+                    android:background="@drawable/seletor_share_post_bg"
                     android:drawableLeft="@drawable/seletor_only_me"
                     android:text="Riêng tôi" />
             </RadioGroup>

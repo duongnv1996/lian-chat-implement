@@ -91,7 +91,7 @@ public class ContactImplRemote extends Interactor implements ContactContract.Int
         if(!id.isEmpty()){
             id=id.substring(0,id.length()-1) + ","+profile.getId();
         }else{
-            listener.onError("Những người bạn này chưa cài app Lian!");
+            listener.onError("Vui lòng chọn thành viên nhóm");
             return;
         }
         final String finalId = id;

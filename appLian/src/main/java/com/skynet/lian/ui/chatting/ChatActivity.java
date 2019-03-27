@@ -172,7 +172,7 @@ public class ChatActivity extends BaseEmojiActivity implements ChattingContract.
                 return;
             }
             String url = mList.get(pos).getFile();
-            if (!URLUtil.isHttpUrl(url)) return;
+            if (!url.contains("http")) return;
             if (url.substring(url.lastIndexOf('/') + 1, url.length()).contains(".wav") || url.substring(url.lastIndexOf('/') + 1, url.length()).contains(".m4a")) {
                 if (!url.equals(urlStreaming)) {
                     if (mediaPlayer.isPlaying()) {

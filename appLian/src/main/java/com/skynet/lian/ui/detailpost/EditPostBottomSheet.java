@@ -10,12 +10,14 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 //import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+
 import com.skynet.lian.R;
 import com.skynet.lian.R2;
 
@@ -44,6 +46,12 @@ public class EditPostBottomSheet extends BottomSheetDialog {
     @BindView(R2.id.imgHide)
     ImageView imgHide;
     private final Context context;
+    @BindView(R2.id.radPublic)
+    RadioButton radPublic;
+    @BindView(R2.id.radOnlyFriend)
+    RadioButton radOnlyFriend;
+    @BindView(R2.id.radOnlyMe)
+    RadioButton radOnlyMe;
 
     public EditPostBottomSheet(@NonNull final Context context, final MoreOptionCallback paymentBottomCallback) {
 
@@ -76,8 +84,7 @@ public class EditPostBottomSheet extends BottomSheetDialog {
                 if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
                     // keyboard is opened
                     imgHide.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     // keyboard is closed
                     imgHide.setVisibility(View.GONE);
 
@@ -87,29 +94,30 @@ public class EditPostBottomSheet extends BottomSheetDialog {
         imgHide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KeyboardUtils.hideSoftInput(context,edtName);
+                KeyboardUtils.hideSoftInput(context, edtName);
 
             }
         });
     }
 
-    void setTypeShare(int type){
-        switch (type){
-            case 1:{
+    void setTypeShare(int type) {
+        switch (type) {
+            case 1: {
                 radioGroup.check(R.id.radPublic);
                 break;
             }
-            case 2:{
+            case 2: {
                 radioGroup.check(R.id.radOnlyFriend);
 
                 break;
             }
-            case 3:{
+            case 3: {
                 radioGroup.check(R.id.radOnlyMe);
                 break;
             }
         }
     }
+
     private void configureBottomSheetBehavior(View contentView) {
         BottomSheetBehavior mBottomSheetBehavior = BottomSheetBehavior.from((View) contentView.getParent());
 
@@ -136,39 +144,32 @@ public class EditPostBottomSheet extends BottomSheetDialog {
 
                 @Override
                 public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                    KeyboardUtils.hideSoftInput(context,edtName);
+                    KeyboardUtils.hideSoftInput(context, edtName);
 
                 }
             });
         }
     }
 
-    @OnClick({R2.id.OptionRight, R2.id.OptionLeft})
+    @OnClick({R2.id.OptionLeft})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.OptionRight:
-                dismiss();
-                int type = 1;
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case R2.id.radPublic: {
-                        type = 1;
-                        break;
-                    }
-                    case R2.id.radOnlyFriend: {
-                        type = 2;
-                        break;
-                    }
-                    case R2.id.radOnlyMe: {
-                        type = 3;
-                        break;
-                    }
-                }
-                bottomCallback.onMoreOptionCallback(edtName.getText().toString(), type);
-                break;
-            case R2.id.OptionLeft:
-                dismiss();
-                break;
+
+        dismiss();
+    }
+
+    @OnClick({R2.id.OptionRight})
+    public void onViewOptionRightClicked(View view) {
+        dismiss();
+        int type = 1;
+        if (radioGroup.getCheckedRadioButtonId() == radPublic.getId()) {
+            type = 1;
+        } else if (radioGroup.getCheckedRadioButtonId() == radOnlyFriend.getId()) {
+            type = 2;
+        } else {
+            type = 3;
         }
+        bottomCallback.onMoreOptionCallback(edtName.getText().toString(), type);
+
     }
 
 

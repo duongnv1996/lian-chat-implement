@@ -46,7 +46,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         }
         holder.tvName.setText(list.get(position).getName());
         holder.tvTime.setText(list.get(position).getDate());
-        holder.tvContent.setEmojiconSize(48);
+//        holder.tvContent.setEmojiconSize(40);
         try {
             holder.tvContent.setText(URLDecoder.decode(list.get(position).getComment(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {

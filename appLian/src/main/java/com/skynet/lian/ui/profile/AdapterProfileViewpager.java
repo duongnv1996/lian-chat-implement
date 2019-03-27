@@ -6,13 +6,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import com.skynet.lian.models.Profile;
+
 public class AdapterProfileViewpager extends FragmentStatePagerAdapter {
     private final String id;
+    private final Profile profile;
     SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
-    public AdapterProfileViewpager(FragmentManager fm, String id) {
+    public AdapterProfileViewpager(FragmentManager fm, String id,Profile profile) {
         super(fm);
         this.id = id;
+        this.profile = profile;
     }
 
     @Override
@@ -44,7 +48,7 @@ public class AdapterProfileViewpager extends FragmentStatePagerAdapter {
                 return GridFragment.newInstance(id);
             }
             case 1: {
-                return ListFragment.newInstance(id);
+                return ListFragment.newInstance(id,profile);
             }
             case 2: {
                 return VideoFragment.newInstance(id);

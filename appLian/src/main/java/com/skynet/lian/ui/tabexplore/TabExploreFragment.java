@@ -191,7 +191,8 @@ public class TabExploreFragment extends BaseFragment implements AdapterTimeline.
     @Override
     public void hiddenProgress() {
 //        dialogLoading.hideDialog();
-
+        rcv.loadMoreComplete();
+        rcv.refreshComplete();
     }
 
     @Override

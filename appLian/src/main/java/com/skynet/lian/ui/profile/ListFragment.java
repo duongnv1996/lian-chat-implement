@@ -14,6 +14,7 @@ import com.skynet.lian.R2;
 import com.skynet.lian.application.AppController;
 import com.skynet.lian.interfaces.SnackBarCallBack;
 import com.skynet.lian.models.Post;
+import com.skynet.lian.models.Profile;
 import com.skynet.lian.models.Timeline;
 import com.skynet.lian.ui.base.BaseFragment;
 import com.skynet.lian.ui.detailpost.DetailPostActivity;
@@ -44,9 +45,10 @@ public class ListFragment extends BaseFragment implements ProfileContract.View, 
     private EditShareBottomSheet dialogShare;
     private ProgressDialogCustom dialogLoading;
 
-    public static ListFragment newInstance(String id) {
+    public static ListFragment newInstance(String id, Profile profile) {
         Bundle args = new Bundle();
         args.putString(AppConstant.MSG,id);
+        args.putParcelable("profile",profile);
         ListFragment fragment = new ListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -78,7 +80,7 @@ public class ListFragment extends BaseFragment implements ProfileContract.View, 
         presenter = new ProfilePresenter(this);
         list = new ArrayList<>();
         adapter = new AdapterList(list, getContext(), this);
-        adapter.setProfile(AppController.getInstance().getmProfileUser());
+        adapter.setProfile(getArguments().getParcelable("profile"));
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         rcv.setHasFixedSize(false);
         presenter.getTimeline(index, AppConstant.TYPE_POST,getArguments().getString(AppConstant.MSG));

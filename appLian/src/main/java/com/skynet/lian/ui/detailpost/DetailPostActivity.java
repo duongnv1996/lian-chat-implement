@@ -382,10 +382,14 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (content.isEmpty()) {
+        if (content.isEmpty() || content.replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
             return;
         }
+//        if (content.isEmpty()) {
+//            Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         if (post == null) return;
 
         Comment message = new Comment();
@@ -632,23 +636,42 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         presenter.getDetail(getIntent().getExtras().getInt(AppConstant.MSG));
     }
 
-    @OnClick({R2.id.tvDelete, R2.id.tvSharePostMenu, R2.id.tvEdit, R2.id.tvOffComment})
-    public void onViewMenuClicked(View view) {
-        switch (view.getId()) {
-            case R2.id.tvDelete:
-                dialogConfirmDelete.show();
-                break;
-            case R2.id.tvSharePostMenu:
-                if (dialogShare != null && !dialogShare.isShowing())
-                    dialogShare.show();
-                break;
-            case R2.id.tvEdit:
-                if (dialogEditPost != null && !dialogEditPost.isShowing()) {
-                    dialogEditPost.setTypeShare(post.getType_share());
-                    dialogEditPost.show();
-                }
-                break;
-            case R2.id.tvOffComment:
+//    @OnClick({R2.id.tvDelete, R2.id.tvSharePostMenu, R2.id.tvEdit, R2.id.tvOffComment})
+//    public void onViewMenuClicked(View view) {
+//        switch (view.getId()) {
+//            case R2.id.tvDelete:
+//                dialogConfirmDelete.show();
+//                break;
+//            case R2.id.tvSharePostMenu:
+//                if (dialogShare != null && !dialogShare.isShowing())
+//                    dialogShare.show();
+//                break;
+//            case R2.id.tvEdit:
+//                if (dialogEditPost != null && !dialogEditPost.isShowing()) {
+//                    dialogEditPost.setTypeShare(post.getType_share());
+//                    dialogEditPost.show();
+//                }
+//                break;
+//            case R2.id.tvOffComment:
+//                if (post.getOff_comment() == 0) { // dc binh luan
+//                    layoutCommentBottom.setVisibility(View.GONE);
+//                    post.setOff_comment(1);
+//                    tvOffComment.setText("Bật bình luận");
+//                } else {
+//                    // k dc binh luan
+//                    layoutCommentBottom.setVisibility(View.VISIBLE);
+//                    post.setOff_comment(0);
+//                    tvOffComment.setText("Tắt bình luận");
+//                }
+//                presenter.toggleComment(post.getId(), post.getOff_comment());
+//                break;
+//        }
+//
+//        expandMenu.setVisibility(View.GONE);
+//    }
+    @OnClick({R2.id.tvOffComment})
+    public void onViewMenutvOffCommentClicked(View view) {
+
                 if (post.getOff_comment() == 0) { // dc binh luan
                     layoutCommentBottom.setVisibility(View.GONE);
                     post.setOff_comment(1);
@@ -660,8 +683,28 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
                     tvOffComment.setText("Tắt bình luận");
                 }
                 presenter.toggleComment(post.getId(), post.getOff_comment());
-                break;
-        }
+
+        expandMenu.setVisibility(View.GONE);
+    }
+    @OnClick({R2.id.tvEdit})
+    public void onViewMenutvEditClicked(View view) {
+
+                if (dialogEditPost != null && !dialogEditPost.isShowing()) {
+                    dialogEditPost.setTypeShare(post.getType_share());
+                    dialogEditPost.show();
+                }
+
+        expandMenu.setVisibility(View.GONE);
+    }
+    @OnClick({ R2.id.tvSharePostMenu})
+    public void onViewMenutvSharePostMenuClicked(View view) {
+                if (dialogShare != null && !dialogShare.isShowing())
+                    dialogShare.show();
+        expandMenu.setVisibility(View.GONE);
+    }
+    @OnClick({R2.id.tvDelete})
+    public void onViewMenutvDeleteClicked(View view) {
+                dialogConfirmDelete.show();
 
         expandMenu.setVisibility(View.GONE);
     }

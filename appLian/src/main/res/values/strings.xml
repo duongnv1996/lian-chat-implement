@@ -10,8 +10,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="slash_msg">Công cụ giúp kết nối bạn bè, chia sẻ nội dung, trò chuyện nhóm và cá nhân hiệu quả</string>
     <string name="splash_title">Chào mừng bạn đến với LIAN Chat</string>
-    <string name="confirm_delete"><![CDATA[Bạn có chắc chắn sẽ <font color="#d0021b"><b>Xóa</b></font> cuộc hội
-thoại của bạn với <font color="#4a4a4a"><b>%s</b></font> ?]]></string>
+    <string name="confirm_delete"><![CDATA[Bạn có chắc chắn muốn <font color="#d0021b"><b>Xóa</b></font> nhóm <font color="#4a4a4a"><b>%s</b></font>? Việc này sẽ khiến cho tất cả các thành viên cũng tự động rời khỏi nhóm]]></string>
     <string name="confirm_leave"><![CDATA[Bạn có chắc chắn sẽ rời khỏi nhóm <br><font color="#4a4a4a"><b>%s</b></font> ]]></string>
     <string name="confirm_add"><![CDATA[<font color="#d0021b"><b>%s</b></font> đã gửi lời mời kết bạn ?]]></string>
     <string name="invite_form">%s đã mời bạn tham gia Lian. Tải xuống app Lian tại đây :\n

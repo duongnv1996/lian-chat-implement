@@ -47,6 +47,7 @@ public class MyVideoPlayerActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        player.onStatePause();
         player.releaseAllVideos();
     }
 
