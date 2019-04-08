@@ -273,14 +273,12 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
                 Picasso.with(this).load(profile.getCover()).fit().centerCrop().into(imgCover);
             } else {
                 Picasso.with(this).load(R.drawable.background).fit().centerCrop().into(imgCover);
-
             }
             if (profile.getIs_following() == 1) {
                 tvFollow.setText("Đang theo dõi");
             } else {
                 tvFollow.setText("Theo dõi");
             }
-
             if (profile.getIs_friend() == 2) {
                 tvMakeFriendRQ.setText("Huỷ kết bạn");
                 tvMakeFriendRQ.setBackgroundResource(R.drawable.bg_round_profile_orange);
@@ -297,7 +295,6 @@ public class ProfileFriendActivity extends BaseActivity implements ProfileFriend
                 tvMakeFriendRQ.setTextColor(ContextCompat.getColor(this, R.color.gray));
                 tvMakeFriendRQ.setBackgroundResource(R.drawable.bg_round_profile_orange_gray);
             }
-
             if (profile.getUserIdRequestFriend().equals(profile.getId()) && profile.getIs_friend() == 1) {
                 bottomAddFriendRequest.setData(R.drawable.ic_mail,
                         Html.fromHtml(String.format(getString(R.string.confirm_add), profile.getName())),

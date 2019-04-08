@@ -1,11 +1,14 @@
 package com.skynet.lian.ui.viewphoto;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.jsibbold.zoomage.ZoomageView;
 import com.skynet.lian.R;
 import com.skynet.lian.R2;
+import com.skynet.lian.ui.DownloadService;
 import com.skynet.lian.ui.base.BaseActivity;
 import com.skynet.lian.utils.AppConstant;
 import com.squareup.picasso.Picasso;
@@ -55,7 +58,13 @@ public class ViewPhotoActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
+    @OnClick(R2.id.imgDownload)
+    public void onViewDownloadClicked() {
+        String message = getIntent().getStringExtra(AppConstant.MSG);
+        LogUtils.e(message);
+        showToast("Downloading....",AppConstant.POSITIVE);
+        startService(DownloadService.getDownloadService(this, message, Environment.DIRECTORY_DOWNLOADS+ "/lian/" ));
+    }
     @OnClick(R2.id.back)
     public void onViewClicked() {
         onBackPressed();

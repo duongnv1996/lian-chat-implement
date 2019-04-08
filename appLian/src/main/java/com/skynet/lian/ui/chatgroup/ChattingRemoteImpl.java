@@ -101,6 +101,30 @@ public class ChattingRemoteImpl extends Interactor implements ChattingContract.I
     }
 
     @Override
+    public void toggle(String id, int toggle) {
+        Profile profile = AppController.getInstance().getmProfileUser();
+        if (profile == null) {
+            listener.onErrorAuthorization();
+            return;
+        }
+        LogUtils.e("toggle to noti = "+ toggle);
+        getmService().toggleMuteChat(profile.getId(), id, toggle).enqueue(new CallBackBase<ApiResponse>() {
+            @Override
+            public void onRequestSuccess(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.code() == AppConstant.CODE_API_SUCCESS && response.body().getData() != null) {
+                    } else {
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onRequestFailure(Call<ApiResponse> call, Throwable t) {
+            }
+        });
+    }
+    @Override
     public void uploadImages(List<File> listFile, final int idRoom, final int positionMessage, final SocketClient socketClient) {
         Profile profile = AppController.getInstance().getmProfileUser();
         if (profile == null) {

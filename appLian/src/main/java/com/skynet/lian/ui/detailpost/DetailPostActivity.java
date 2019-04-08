@@ -1,5 +1,7 @@
 package com.skynet.lian.ui.detailpost;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -29,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.skynet.lian.R;
@@ -47,6 +50,7 @@ import com.skynet.lian.utils.AppConstant;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +62,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DetailPostActivity extends BaseEmojiActivity implements DetailPostContract.View, ICallback, SwipeRefreshLayout.OnRefreshListener, View.OnTouchListener, EditShareBottomSheet.MoreOptionCallback {
+public class DetailPostActivity extends BaseEmojiActivity implements DetailPostContract.View, ICallback, MaterialDialog.ListCallback, SwipeRefreshLayout.OnRefreshListener, View.OnTouchListener, EditShareBottomSheet.MoreOptionCallback {
     @BindView(R2.id.imageView10)
     ImageView imageView10;
     @BindView(R2.id.imageView13)
@@ -129,6 +133,8 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     ConstraintLayout layoutShare;
     @BindView(R2.id.tvShareName)
     TextView tvShareName;
+    MaterialDialog.Builder builder;
+    private int commentEditPosition = 0;
     private AdapterComment adapterComment;
     private Post post;
     private DetailPostContract.Presenter presenter;
@@ -144,6 +150,8 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
             }
         }
     };
+    private boolean isEdit = false;
+    private MaterialDialog dialogOption;
 
     @Override
     protected int initLayout() {
@@ -159,7 +167,14 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     protected void initVariables() {
         dialogShare = new EditShareBottomSheet(this, this);
         dialogEditPost = new EditPostBottomSheet(this, callBackEditPost);
-        adapterComment = new AdapterComment(listComment, this);
+        adapterComment = new AdapterComment(listComment, this, new ICallback() {
+            @Override
+            public void onCallBack(int pos) {
+                commentEditPosition = pos;
+                if (dialogOption != null && !dialogOption.isShowing())
+                    dialogOption.show();
+            }
+        });
         rcv.setAdapter(adapterComment);
         presenter = new DetailPostPresenter(this);
         presenter.getDetail(getIntent().getExtras().getInt(AppConstant.MSG));
@@ -188,6 +203,11 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
 
     @Override
     protected void initViews() {
+        builder = new MaterialDialog.Builder(this);
+        builder.items(R.array.option);
+        builder.title("Comment");
+        builder.itemsCallback(this);
+        dialogOption = builder.build();
         messageTxt.setEmojiSize(48);
         emojiKeyboardLayout.prepareKeyboard(this, messageTxt);
         rcvPhoto.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
@@ -245,7 +265,8 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-//
+
+    //
 //    @OnClick({R2.id.imageView10, R2.id.imageView13, R2.id.circleImageView3,
 //            R2.id.tvName, R2.id.tvTime, R2.id.tvNumbershare, R2.id.img_smile,
 //            R2.id.send_imv})
@@ -382,7 +403,7 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (content.isEmpty() || content.replaceAll(" ","").isEmpty()) {
+        if (content.isEmpty() || content.replaceAll(" ", "").isEmpty()) {
             Toast.makeText(this, "Bạn phải nhập bình luận ", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -391,24 +412,33 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
 //            return;
 //        }
         if (post == null) return;
+        if (commentEditPosition < listComment.size() && isEdit) {
+            listComment.get(commentEditPosition).setComment(content);
+            isEdit = false;
+            adapterComment.notifyItemChanged(commentEditPosition);
+            presenter.editComment(listComment.get(commentEditPosition).getId(), content);
+            messageTxt.setText("");
 
-        Comment message = new Comment();
-        message.setName(AppController.getInstance().getmProfileUser().getName());
-        message.setComment(content);
-        message.setAvatar(AppController.getInstance().getmProfileUser().getAvatar());
-        messageTxt.setText("");
-        listComment.add(message);
-        adapterComment.notifyItemInserted(adapterComment.getItemCount());
-        presenter.comment(post.getId(), content, listComment.size() - 1);
-        if (adapterComment.getItemCount() > 0)
-            rcv.smoothScrollToPosition(adapterComment.getItemCount());
-        post.setNumber_comment(post.getNumber_comment() + 1);
-        tvNumberComment.setText(post.getNumber_comment() + " bình luận");
-        Intent i = new Intent();
-        i.putExtra(AppConstant.MSG, post.getNumber_comment());
-        setResult(RESULT_CHANGE_COMMENT, i);
+        } else {
+            Comment message = new Comment();
+            message.setName(AppController.getInstance().getmProfileUser().getName());
+            message.setComment(content);
+            message.setAvatar(AppController.getInstance().getmProfileUser().getAvatar());
+            messageTxt.setText("");
+            listComment.add(message);
+            adapterComment.notifyItemInserted(adapterComment.getItemCount());
+            presenter.comment(post.getId(), content, listComment.size() - 1);
+            if (adapterComment.getItemCount() > 0)
+                rcv.smoothScrollToPosition(adapterComment.getItemCount());
+            post.setNumber_comment(post.getNumber_comment() + 1);
+            tvNumberComment.setText(post.getNumber_comment() + " bình luận");
+            Intent i = new Intent();
+            i.putExtra(AppConstant.MSG, post.getNumber_comment());
+            setResult(RESULT_CHANGE_COMMENT, i);
+        }
 
     }
+
     @Override
     public void onSuccessGetDetail(Post notification) {
         this.post = notification;
@@ -636,7 +666,7 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
         presenter.getDetail(getIntent().getExtras().getInt(AppConstant.MSG));
     }
 
-//    @OnClick({R2.id.tvDelete, R2.id.tvSharePostMenu, R2.id.tvEdit, R2.id.tvOffComment})
+    //    @OnClick({R2.id.tvDelete, R2.id.tvSharePostMenu, R2.id.tvEdit, R2.id.tvOffComment})
 //    public void onViewMenuClicked(View view) {
 //        switch (view.getId()) {
 //            case R2.id.tvDelete:
@@ -672,39 +702,42 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     @OnClick({R2.id.tvOffComment})
     public void onViewMenutvOffCommentClicked(View view) {
 
-                if (post.getOff_comment() == 0) { // dc binh luan
-                    layoutCommentBottom.setVisibility(View.GONE);
-                    post.setOff_comment(1);
-                    tvOffComment.setText("Bật bình luận");
-                } else {
-                    // k dc binh luan
-                    layoutCommentBottom.setVisibility(View.VISIBLE);
-                    post.setOff_comment(0);
-                    tvOffComment.setText("Tắt bình luận");
-                }
-                presenter.toggleComment(post.getId(), post.getOff_comment());
+        if (post.getOff_comment() == 0) { // dc binh luan
+            layoutCommentBottom.setVisibility(View.GONE);
+            post.setOff_comment(1);
+            tvOffComment.setText("Bật bình luận");
+        } else {
+            // k dc binh luan
+            layoutCommentBottom.setVisibility(View.VISIBLE);
+            post.setOff_comment(0);
+            tvOffComment.setText("Tắt bình luận");
+        }
+        presenter.toggleComment(post.getId(), post.getOff_comment());
 
         expandMenu.setVisibility(View.GONE);
     }
+
     @OnClick({R2.id.tvEdit})
     public void onViewMenutvEditClicked(View view) {
 
-                if (dialogEditPost != null && !dialogEditPost.isShowing()) {
-                    dialogEditPost.setTypeShare(post.getType_share());
-                    dialogEditPost.show();
-                }
+        if (dialogEditPost != null && !dialogEditPost.isShowing()) {
+            dialogEditPost.setTypeShare(post.getType_share());
+            dialogEditPost.show();
+        }
 
         expandMenu.setVisibility(View.GONE);
     }
-    @OnClick({ R2.id.tvSharePostMenu})
+
+    @OnClick({R2.id.tvSharePostMenu})
     public void onViewMenutvSharePostMenuClicked(View view) {
-                if (dialogShare != null && !dialogShare.isShowing())
-                    dialogShare.show();
+        if (dialogShare != null && !dialogShare.isShowing())
+            dialogShare.show();
         expandMenu.setVisibility(View.GONE);
     }
+
     @OnClick({R2.id.tvDelete})
     public void onViewMenutvDeleteClicked(View view) {
-                dialogConfirmDelete.show();
+        dialogConfirmDelete.show();
 
         expandMenu.setVisibility(View.GONE);
     }
@@ -727,4 +760,35 @@ public class DetailPostActivity extends BaseEmojiActivity implements DetailPostC
     }
 
 
+    @Override
+    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+        if (commentEditPosition < listComment.size()) {
+            switch (position) {
+                case 0: {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = null;
+                    try {
+                        clip = ClipData.newPlainText("text",
+                                URLDecoder.decode(listComment.get(commentEditPosition).getComment(), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    clipboard.setPrimaryClip(clip);
+                    showToast("Đã sao chép!", AppConstant.POSITIVE);
+                    break;
+                }
+                case 1: {
+                    isEdit = true;
+                    messageTxt.setText(listComment.get(commentEditPosition).getComment());
+                    break;
+                }
+                case 2: {
+                    presenter.deleteComment(listComment.get(commentEditPosition).getId());
+                    adapterComment.remove(commentEditPosition);
+
+                    break;
+                }
+            }
+        }
+    }
 }

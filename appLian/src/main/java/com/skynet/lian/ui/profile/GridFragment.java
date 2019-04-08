@@ -3,6 +3,7 @@ package com.skynet.lian.ui.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
@@ -81,8 +82,8 @@ public class GridFragment extends BaseFragment implements ProfileContract.View ,
         presenter = new ProfilePresenter(this);
         list = new ArrayList<>();
         adapterGrid = new AdapterGrid(list,getContext(),this);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        rcv.setLayoutManager(layoutManager);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        rcv.setLayoutManager(new GridLayoutManager(getContext(),3));
         rcv.setHasFixedSize(true);
         presenter.getTimeline(index,AppConstant.TYPE_IMAGE,getArguments().getString(AppConstant.MSG));
         rcv.setAdapter(adapterGrid);

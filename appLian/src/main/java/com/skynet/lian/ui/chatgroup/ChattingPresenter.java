@@ -44,7 +44,11 @@ public class ChattingPresenter extends Presenter<ChattingContract.View> implemen
             interactor.getRoomInfo(id, index, isLoadmore);
         }
     }
-
+    @Override
+    public void toggle(String id, boolean toggle) {
+        if(view == null ) return;
+        interactor.toggle(id,toggle ? 0 : 1);
+    }
     @Override
     public void sendMessage(String sendToId, String message, SocketClient socketClient, int positionMessage,String listUserIds) {
         if (isAvaliableView()) {

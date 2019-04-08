@@ -23,6 +23,11 @@ http://play.google.com/store/apps/details?id=%s
         <item >Nam</item>
         <item >Nữ</item>
     </array>
+    <array name="option">
+        <item >Sao chép</item>
+        <item >Sửa</item>
+        <item >Xoá</item>
+    </array>
     <string name="button_preview">Xem trước</string>
     <string name="button_sure">Áp dụng(%1$d)</string>
     <string name="button_apply">Áp dụng(%1$d)</string>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.skynet.lian.R;
 import com.skynet.lian.R2;
+import com.skynet.lian.interfaces.ICallback;
 import com.skynet.lian.models.Comment;
 import com.squareup.picasso.Picasso;
 
@@ -25,10 +26,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHolder> {
     List<Comment> list;
     Context context;
+    ICallback iCallback;
 
-
-    public AdapterComment(List<Comment> list, Context context) {
+    public AdapterComment(List<Comment> list, Context context, ICallback iCallback) {
         this.list = list;
+        this.iCallback = iCallback;
         this.context = context;
     }
 
@@ -37,12 +39,16 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.post_comment_item, parent, false));
     }
-
+    public void remove(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, list.size());
+    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (list.get(position).getAvatar() != null && !list.get(position).getAvatar().isEmpty()) {
             Picasso.with(context).load(list.get(position).getAvatar()).fit().centerCrop().into(holder.circleImageView4);
-          //  Glide.with(context).asBitmap().load(list.get(position).getAvatar()).into(holder.circleImageView4);
+            //  Glide.with(context).asBitmap().load(list.get(position).getAvatar()).into(holder.circleImageView4);
         }
         holder.tvName.setText(list.get(position).getName());
         holder.tvTime.setText(list.get(position).getDate());
@@ -52,6 +58,13 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                iCallback.onCallBack(position);
+                return false;
+            }
+        });
 //        holder.tvContent.setText(list.get(position).getComment());
     }
 

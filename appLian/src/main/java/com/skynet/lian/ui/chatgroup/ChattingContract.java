@@ -29,6 +29,7 @@ public interface ChattingContract {
         void sendMessage(String sendToId, String message, SocketClient socketClient, int positionMessage, String listUserIds);
 
         void getInfo(String id, int type);
+        void toggle(String id, boolean toggle);
 
         void uploadImages(List<File> listFile, int idRoom, int positionMessage, SocketClient socketClient);
         void uploadFiles(File file, int idRoom, int positionMessage, SocketClient socketClient);
@@ -36,6 +37,7 @@ public interface ChattingContract {
     }
     interface Interactor {
         void getRoomInfo(String id, int indexList, boolean isLoadmore);
+        void toggle(String id, int toggle);
 
         void sendMessage(String sendToId, String message, SocketClient socketClient, int positionMessage, String listUserIds);
 

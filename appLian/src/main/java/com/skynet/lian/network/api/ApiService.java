@@ -217,6 +217,10 @@ public interface ApiService {
     Call<ApiResponse> deletePost(@Field("user_id") String user_id, @Field("post_id") int post_id);
 
     @FormUrlEncoded
+    @POST("delete_comment.php")
+    Call<ApiResponse> deleteComment(@Field("user_id") String user_id, @Field("comment_id") int post_id);
+
+    @FormUrlEncoded
     @POST("comment_post.php")
     Call<ApiResponse<Comment>> commentPost(@Field("user_id") String user_id, @Field("post_id") int post_id, @Field("content") String is_like);
 
@@ -265,6 +269,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("edit_post.php")
     Call<ApiResponse> editPost(@Field("post_id") int id, @Field("user_id") String idUser, @Field("content") String content, @Field("type_share") int type_share);
+
+    @FormUrlEncoded
+    @POST("edit_comment.php")
+    Call<ApiResponse> editComment(@Field("comment_id") int id, @Field("user_id") String idUser, @Field("content") String content);
 
     @GET("post_detail.php")
     Call<ApiResponse<Post>> getDetailPost(@Query("post_id") int id, @Query("user_id") String id1);

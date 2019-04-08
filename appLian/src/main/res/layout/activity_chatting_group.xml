@@ -105,7 +105,7 @@
 
                 android:paddingBottom="16dp"
                 android:tint="@color/dusty_orange"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mute"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_info_black_24dp" />
 
@@ -116,12 +116,23 @@
                 android:paddingStart="16dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingBottom="16dp"
                 android:tint="@color/dusty_orange"
                 app:layout_constraintEnd_toStartOf="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_video_toolbar" />
+            <CheckBox
+                android:id="@+id/mute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/seletor_mute"
+                android:padding="@dimen/dp8"
+                android:tint="@color/dusty_orange"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.design.widget.AppBarLayout>

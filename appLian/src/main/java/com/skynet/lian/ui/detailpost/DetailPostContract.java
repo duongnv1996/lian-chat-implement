@@ -24,10 +24,12 @@ public interface DetailPostContract {
         void toggleComment(int id, int toogle);
 
         void deletePost(int id);
+        void deleteComment(int id);
 
         void comment(int idPost, String conent, int pos);
 
         void editPost(int idPost, String content, int type);
+        void editComment(int idPost, String content);
 
         void shareContent(int idPost, String content, int type);
     }
@@ -38,6 +40,8 @@ public interface DetailPostContract {
         void toggleLike(int id, int toogle);
 
         void toggleComment(int id, int toogle);
+        void editComment(int idPost, String content);
+        void deleteComment(int id);
 
         void deletePost(int id);
 

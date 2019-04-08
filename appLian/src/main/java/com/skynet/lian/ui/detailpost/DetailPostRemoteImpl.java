@@ -75,6 +75,59 @@ public class DetailPostRemoteImpl extends Interactor implements DetailPostContra
     }
 
     @Override
+    public void editComment(int idPost, String content) {
+        Profile profile = AppController.getInstance().getmProfileUser();
+        if (profile == null) {
+            listener.onErrorAuthorization();
+            return;
+        }
+        getmService().editComment(idPost, profile.getId(), content).enqueue(new CallBackBase<ApiResponse>() {
+            @Override
+            public void onRequestSuccess(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getCode() == AppConstant.CODE_API_SUCCESS && response.body().getData() != null) {
+                    } else {
+                        listener.onError(response.body().getMessage());
+                    }
+                } else {
+                    listener.onError(response.message());
+                }
+            }
+
+            @Override
+            public void onRequestFailure(Call<ApiResponse> call, Throwable t) {
+                listener.onErrorApi(t.getMessage());
+
+            }
+        });
+    }
+
+    @Override
+    public void deleteComment(int id) {
+        Profile profile = AppController.getInstance().getmProfileUser();
+        if (profile == null) {
+            listener.onErrorAuthorization();
+            return;
+        }
+        getmService().deleteComment(profile.getId(), id).enqueue(new CallBackBase<ApiResponse>() {
+            @Override
+            public void onRequestSuccess(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getCode() == AppConstant.CODE_API_SUCCESS) {
+                    } else {
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onRequestFailure(Call<ApiResponse> call, Throwable t) {
+                listener.onErrorApi(t.getMessage());
+            }
+        });
+    }
+
+    @Override
     public void deletePost(int id) {
         Profile profile = AppController.getInstance().getmProfileUser();
         if (profile == null) {

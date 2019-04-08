@@ -100,6 +100,11 @@ public class DetailPostPresenter implements DetailPostContract.Presenter {
     }
 
     @Override
+    public void deleteComment(int id) {
+        interactor.deleteComment(id);
+    }
+
+    @Override
     public void comment(int idPost, String conent, int pos) {
         if (view == null) return;
         interactor.comment(idPost, conent, pos);
@@ -110,6 +115,12 @@ public class DetailPostPresenter implements DetailPostContract.Presenter {
         if (view == null) return;
         view.showProgress();
         interactor.editPost(idPost, content, type);
+    }
+
+    @Override
+    public void editComment(int idPost, String content) {
+        interactor.editComment(idPost,content);
+
     }
 
     @Override

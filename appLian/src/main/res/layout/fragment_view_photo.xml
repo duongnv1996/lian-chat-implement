@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/black"
 
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/avt_defaut"/>
+        android:src="@drawable/avt_defaut" />
 
     <!--<com.halilibo.bvpkotlin.BetterVideoPlayer-->
-        <!--android:id="@+id/player"-->
-        <!--android:layout_width="match_parent"-->
-        <!--app:bvp_gestureType="SwipeGesture"-->
-        <!--android:layout_height="match_parent" />-->
+    <!--android:id="@+id/player"-->
+    <!--android:layout_width="match_parent"-->
+    <!--app:bvp_gestureType="SwipeGesture"-->
+    <!--android:layout_height="match_parent" />-->
     <cn.jzvd.JzvdStd
         android:id="@+id/player"
         android:layout_width="match_parent"
-    android:visibility="gone"
+        android:layout_height="match_parent"
 
-    android:layout_height="match_parent"
-        />
+        android:visibility="gone">
+
+    </cn.jzvd.JzvdStd>
+
+    <ImageView
+        android:id="@+id/imgDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/img"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:tint="@color/orange"
+        android:padding="@dimen/dp16"
+        app:srcCompat="@drawable/ic_file_download_black_24dp" />
 </RelativeLayout>

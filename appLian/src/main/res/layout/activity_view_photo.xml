@@ -17,4 +17,16 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_back"
         android:padding="@dimen/dp16"/>
+
+    <ImageView
+        android:id="@+id/imgDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/img"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:tint="@color/orange"
+        android:padding="@dimen/dp16"
+        app:srcCompat="@drawable/ic_file_download_black_24dp" />
 </RelativeLayout>

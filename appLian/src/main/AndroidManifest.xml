@@ -125,7 +125,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC0wCBs99dEesoLn9n_U5HxJ3N9rYDG27I" />
-
+        <service
+            android:name=".ui.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
         <service android:name=".ui.FCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

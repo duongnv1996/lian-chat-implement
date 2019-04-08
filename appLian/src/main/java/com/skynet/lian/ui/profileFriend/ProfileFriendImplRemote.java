@@ -195,6 +195,7 @@ public class ProfileFriendImplRemote extends Interactor implements ProfileFriend
             public void onRequestSuccess(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getCode() == AppConstant.CODE_API_SUCCESS) {
+                        getInfo(idFriend);
                     } else {
                         new ExceptionHandler<List<Profile>>(listener, response.body()).excute();
                     }

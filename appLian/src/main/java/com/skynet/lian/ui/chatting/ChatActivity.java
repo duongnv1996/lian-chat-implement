@@ -54,6 +54,7 @@ import com.skynet.lian.models.Room;
 import com.skynet.lian.models.Seen;
 import com.skynet.lian.network.socket.SocketConstants;
 import com.skynet.lian.network.socket.SocketResponse;
+import com.skynet.lian.ui.DownloadService;
 import com.skynet.lian.ui.profileFriend.ProfileFriendActivity;
 import com.skynet.lian.ui.viewphoto.ViewPhotoActivity;
 import com.skynet.lian.ui.views.ChatParentLayout;
@@ -207,9 +208,11 @@ public class ChatActivity extends BaseEmojiActivity implements ChattingContract.
                 }
                 return;
             }
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setData(Uri.parse(url));
+//            startActivity(i);
+            showToast("Downloading....",AppConstant.POSITIVE);
+            startService(DownloadService.getDownloadService(ChatActivity.this, url, Environment.DIRECTORY_DOWNLOADS+ "/lian/" ));
         }
     };
     private BroadcastReceiver receiver = new BroadcastReceiver() {

@@ -14,6 +14,16 @@ public class Comment {
     public void setType(int type) {
         this.type = type;
     }
+@SerializedName("id")
+int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Expose
     @SerializedName("avatar")

@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.URLUtil;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +52,9 @@ import com.skynet.lian.models.Room;
 import com.skynet.lian.models.Seen;
 import com.skynet.lian.network.socket.SocketConstants;
 import com.skynet.lian.network.socket.SocketResponse;
+import com.skynet.lian.ui.DownloadService;
 import com.skynet.lian.ui.chatgroup.editgroup.EditGroupActivity;
+import com.skynet.lian.ui.chatting.ChatActivity;
 import com.skynet.lian.ui.profileFriend.ProfileFriendActivity;
 import com.skynet.lian.ui.viewphoto.ViewPhotoActivity;
 import com.skynet.lian.ui.views.ChatParentLayout;
@@ -129,7 +133,8 @@ public class ChatGroupActivity extends BaseEmojiActivity implements ChattingCont
     AppBarLayout appBar;
     @BindView(R2.id.rcvPhoto)
     RecyclerView rcvPhoto;
-
+    @BindView(R2.id.mute)
+    CheckBox mute;
     @BindView(R2.id.expandKeyboardLayout)
     ExpandableLayout expandKeyboardLayout;
     @BindView(R2.id.layoutKeyboard)
@@ -204,9 +209,11 @@ public class ChatGroupActivity extends BaseEmojiActivity implements ChattingCont
                 }
                 return;
             }
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setData(Uri.parse(url));
+//            startActivity(i);
+            showToast("Downloading....",AppConstant.POSITIVE);
+            startService(DownloadService.getDownloadService(ChatGroupActivity.this, url, Environment.DIRECTORY_DOWNLOADS+ "/lian/" ));
         }
     };
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -518,6 +525,13 @@ public class ChatGroupActivity extends BaseEmojiActivity implements ChattingCont
 //        if (mAdapterChat.getItemCount() > 0)
 //            mRcv.smoothScrollToPosition(mAdapterChat.getItemCount());
         tvTitle.setText(room.getTitle());
+        mute.setChecked(room.getIs_mute() == 0 ? true : false);
+        mute.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.toggle(chatRoomId + "", isChecked);
+            }
+        });
     }
 
     @Override
